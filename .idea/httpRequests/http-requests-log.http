@@ -1,0 +1,59 @@
+GET http://127.0.0.1:5000/admin/user/rosenth
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyZGF0YSI6IntcInVzZXJJcmlcIjoge1widmFsdWVcIjogXCJodHRwczovL29yY2lkLm9yZy8wMDAwLTAwMDMtMTY4MS00MDM2XCIsIFwiX19jbGFzc19fXCI6IFwiSXJpXCJ9LCBcInVzZXJJZFwiOiB7XCJ2YWx1ZVwiOiBcInJvc2VudGhcIiwgXCJfX2NsYXNzX19cIjogXCJYc2RfTkNOYW1lXCJ9LCBcImZhbWlseU5hbWVcIjoge1widmFsdWVcIjogXCJSb3NlbnRoYWxlclwiLCBcImxhbmdcIjogbnVsbCwgXCJfX2NsYXNzX19cIjogXCJYc2Rfc3RyaW5nXCJ9LCBcImdpdmVuTmFtZVwiOiB7XCJ2YWx1ZVwiOiBcIkx1a2FzXCIsIFwibGFuZ1wiOiBudWxsLCBcIl9fY2xhc3NfX1wiOiBcIlhzZF9zdHJpbmdcIn0sIFwiaXNBY3RpdmVcIjoge1widmFsdWVcIjogXCJUcnVlXCIsIFwiX19jbGFzc19fXCI6IFwiWHNkX2Jvb2xlYW5cIn0sIFwiaGFzUGVybWlzc2lvbnNcIjoge1wic2V0aXRlbXNcIjogW3tcInZhbHVlXCI6IFwib2xkYXA6R2VuZXJpY1ZpZXdcIiwgXCJfX2NsYXNzX19cIjogXCJJcmlcIn0sIHtcInZhbHVlXCI6IFwib2xkYXA6R2VuZXJpY1Jlc3RyaWN0ZWRcIiwgXCJfX2NsYXNzX19cIjogXCJJcmlcIn1dLCBcIl9fY2xhc3NfX1wiOiBcIlNlcmlhbGl6ZWFibGVTZXRcIn0sIFwiaW5Qcm9qZWN0XCI6IHtcInNldGRhdGFcIjoge1wib2xkYXA6U3lzdGVtUHJvamVjdFwiOiB7XCJzZXRpdGVtc1wiOiBbe1wiX19jbGFzc19fXCI6IFwiQWRtaW5QZXJtaXNzaW9uXCIsIFwiX192YWx1ZV9fXCI6IFwib2xkYXA6QURNSU5fT0xEQVBcIn1dLCBcIl9fY2xhc3NfX1wiOiBcIk9ic2VydmFibGVTZXRcIn0sIFwib2xkYXA6SHlwZXJIYW1sZXRcIjoge1wic2V0aXRlbXNcIjogW3tcIl9fY2xhc3NfX1wiOiBcIkFkbWluUGVybWlzc2lvblwiLCBcIl9fdmFsdWVfX1wiOiBcIm9sZGFwOkFETUlOX1JFU09VUkNFU1wifV0sIFwiX19jbGFzc19fXCI6IFwiT2JzZXJ2YWJsZVNldFwifX0sIFwiX19jbGFzc19fXCI6IFwiSW5Qcm9qZWN0Q2xhc3NcIn0sIFwiX19jbGFzc19fXCI6IFwiVXNlckRhdGFcIn0iLCJleHAiOjE3MzY0NjIwMTUuMTE5Mjk0LCJpYXQiOjE3MzYzNzU2MTUsImlzcyI6Imh0dHA6Ly9vbGRhcC5vcmcifQ.fnaTgkijrAU-YFMZFOC1Xcte1Irc4uWETGMP9tx7Y7o
+User-Agent: IntelliJ HTTP Client/WebStorm 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-01-08T233516.200.json
+
+###
+
+POST http://127.0.0.1:5000/admin/auth/rosenth
+Content-Type: application/json
+Accept: application/json
+Content-Length: 31
+User-Agent: IntelliJ HTTP Client/WebStorm 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+{
+    "password": "RioGrande"
+}
+
+<> 2025-01-07T221507.200.json
+
+###
+
+POST http://127.0.0.1:5000/admin/auth/rosenth
+Accept: application/json
+Content-Length: 25
+User-Agent: IntelliJ HTTP Client/WebStorm 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+{"password": "RioGrande"}
+
+<> 2025-01-07T221135.400.json
+
+###
+
+POST http://127.0.0.1:5000/admin/auth/rosenth
+Accept: application/json
+Content-Length: 25
+User-Agent: IntelliJ HTTP Client/WebStorm 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+{"password": "RioGrande"}
+
+<> 2025-01-07T221026.400.json
+
+###
+
+POST http://127.0.0.1:5000/admin/auth/rosenth
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/WebStorm 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2025-01-07T220949.400.json
+
+###
+

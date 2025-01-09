@@ -1,0 +1,25 @@
+{
+  "family_name": "Rosenthaler",
+  "given_name": "Lukas",
+  "has_permissions": [
+    "oldap:GenericView",
+    "oldap:GenericRestricted"
+  ],
+  "in_projects": [
+    {
+      "permissions": [
+        "oldap:ADMIN_OLDAP"
+      ],
+      "project": "oldap:SystemProject"
+    },
+    {
+      "permissions": [
+        "oldap:ADMIN_RESOURCES"
+      ],
+      "project": "oldap:HyperHamlet"
+    }
+  ],
+  "isActive": true,
+  "userId": "rosenth",
+  "userIri": "https://orcid.org/0000-0003-1681-4036"
+}
