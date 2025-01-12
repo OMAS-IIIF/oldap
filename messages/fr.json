@@ -1,0 +1,11 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "hello_world": "Hello, {name} from fr-ch!",
+  "unkown_api_error": "Erreur d'API inconnue ({num})!",
+  "no_token": "Pas de jeton d'accès pour l'utilisateur",
+  "userdata_corrupted": "Données d'autorisation de l'utilisateur corrompues!",
+  "do_login": "Connectez-vous à votre compte",
+  "lost_pw": "Mot de passe perdu ?",
+  "not_registered": "Vous n'êtes pas inscrit ?",
+  "apply_account": "Demande d'ouverture de compte"
+}

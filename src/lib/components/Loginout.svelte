@@ -9,6 +9,8 @@
 	import { User } from 'svelte-hero-icons';
 	import { OldapUser } from '$lib/oldap/classes/oldap_user';
 	import { userStore } from '$lib/stores/user';
+	import * as m from '$lib/paraglide/messages.js'
+
 
 	const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -27,7 +29,7 @@
 			}
 			else {
 				errorInfoStore.set({
-					errormsg: "Unknown API error (1)",
+					errormsg: m.unkown_api_error({num: 1}), // "Unknown API error (1)",
 					errorcode: 500,
 					severity: Severity.ERROR,
 				});
@@ -44,7 +46,7 @@
 			}
 			else {
 				errorInfoStore.set({
-					errormsg: "Unknown API error (2)",
+					errormsg: m.unkown_api_error({num: 1}), // "Unknown API error (2)",
 					errorcode: 500,
 					severity: Severity.ERROR,
 				});
@@ -74,7 +76,7 @@
 			}
 			else {
 				errorInfoStore.set({
-					errormsg: 'No access token for user',
+					errormsg: m.no_token(),
 					errorcode: 500,
 					severity: Severity.ERROR,
 				});
@@ -95,7 +97,7 @@
 		}
 		else {
 			errorInfoStore.set({
-				errormsg: 'User authorization data corrupted',
+				errormsg: m.userdata_corrupted(),
 				errorcode: 500,
 				severity: Severity.ERROR,
 			});
@@ -144,11 +146,11 @@
 		</Label>
 		<div class="flex items-start">
 			<!-- <Checkbox>Remember me</Checkbox> -->
-			<a href="/" class="ms-auto text-sm text-primary-700 hover:underline dark:text-primary-500"> Lost password? </a>
+			<a href="/" class="ms-auto text-sm text-primary-700 hover:underline dark:text-primary-500"> {m.lost_pw()} </a>
 		</div>
-		<Button type="submit" class="w-full1" onclick={() => login()}>Login to your account</Button>
+		<Button type="button" class="w-full1" onclick={() => login()}>{m.do_login()}</Button>
 		<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-			Not registered? <a href="/" class="text-primary-700 hover:underline dark:text-primary-500"> Apply for account </a>
+			{m.not_registered()} <a href="/" class="text-primary-700 hover:underline dark:text-primary-500"> Apply for account </a>
 		</div>
 	</form>
 </Modal>

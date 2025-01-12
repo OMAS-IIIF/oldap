@@ -54,7 +54,7 @@
 	userStore.subscribe((oldap_user: OldapUser | null) => {
 		if (oldap_user) {
 			logged_in = true;
-			//userid = oldap_user.userId;
+			console.log(oldap_user);
 			family_name = oldap_user.familyName;
 			given_name = oldap_user.givenName;
 			gravatar_url = getGravatarUrl(oldap_user.email)

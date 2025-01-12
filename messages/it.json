@@ -1,4 +1,11 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from it!"
+	"hello_world": "Hello, {name} from it!",
+	"unkown_api_error": "Errore API sconosciuto ({num})!",
+	"no_token": "Nessun token di accesso per l'utente!",
+	"userdata_corrupted": "Dati di autorizzazione dell'utente danneggiati!",
+	"do_login": "Accedere al proprio account",
+	"lost_pw": "Avete perso la password?",
+	"not_registered": "Non siete registrati?",
+	"apply_account": "Richiedi il conto"
 }
