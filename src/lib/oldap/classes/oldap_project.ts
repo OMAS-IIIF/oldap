@@ -1,23 +1,29 @@
-import type { Iri } from '$lib/oldap/types/xsd_iri';
-import type { NCName } from '$lib/oldap/types/xsd_ncname';
+import { Iri } from '$lib/oldap/types/xsd_iri';
+import { NCName } from '$lib/oldap/types/xsd_ncname';
+import { OldapObject } from '$lib/oldap/classes/oldap_object';
+import { jsonToLangString, type LangString } from '$lib/oldap/types/langstring';
 
-
-export class OldapProject {
+export class OldapProject extends OldapObject{
 	#projectIri: Iri;
 	#projectShortName: NCName;
 	#namespaceIri: Iri;
-	label?: string;
-	comment?: string;
+	label?: LangString;
+	comment?: LangString;
 	projectStart?: Date;
 	projectEnd?: Date;
 
-	constructor(projectIri: Iri,
+	constructor(creator: Iri,
+							created: Date,
+							contributor: Iri,
+							modified: Date,
+							projectIri: Iri,
 							projectShortName: NCName,
 							namespaceIri: Iri,
-							label?: string,
-							comment?: string,
+							label?: LangString,
+							comment?: LangString,
 							projectStart?: Date,
 							projectEnd?: Date) {
+		super(creator, created, contributor, modified);
 		this.#projectIri = projectIri;
 		this.#projectShortName = projectShortName;
 		this.#namespaceIri = namespaceIri;
@@ -38,4 +44,24 @@ export class OldapProject {
 	get namespaceIri() {
 		return this.#namespaceIri;
 	}
+
+	static fromOldapJson(json: any): OldapProject {
+		const creator = new Iri(json.creator);
+		const created = new Date(json.created);
+		const contributor = new Iri(json.contributor);
+		const modified = new Date(json.modified);
+		const projectIri = new Iri(json.projectIri);
+		const projectShortName = new NCName(json.projectShortName);
+		const namespaceIri = new Iri(json.namespaceIri);
+		const label = jsonToLangString(json?.label);
+		const comment = jsonToLangString(json?.comment);
+		const projectStart = json?.projectStart ? new Date(json.projectStart) : undefined
+		const projectEnd = json?.projectEnd ? new Date(json.projectEnd) : undefined;
+
+		return new OldapProject(
+			creator, created, contributor, modified, projectIri, projectShortName,
+			namespaceIri, label, comment, projectStart, projectEnd
+		);
+	}
 }
+

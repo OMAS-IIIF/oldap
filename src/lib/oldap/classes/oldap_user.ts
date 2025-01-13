@@ -3,6 +3,7 @@ import { Iri } from '$lib/oldap/types/xsd_iri';
 import { QName } from '$lib/oldap/types/xsd_qname';
 import { AdminPermission, stringToAdminPermission } from '$lib/oldap/enums/admin_permissions';
 import { OldapErrorInvalidValue } from '$lib/oldap/errors/OldapErrorInvalidValue';
+import { OldapObject } from '$lib/oldap/classes/oldap_object';
 
 
 export interface InProject {
@@ -10,7 +11,7 @@ export interface InProject {
 	permissions: AdminPermission[]
 }
 
-export class OldapUser {
+export class OldapUser extends OldapObject {
 	#userIri: Iri;
 	#userId: NCName;
 	isActive?: boolean;
@@ -20,7 +21,11 @@ export class OldapUser {
 	inProject?: InProject[];
 	hasPermissions?: QName[];
 
-	constructor(userIri: Iri,
+	constructor(creator: Iri,
+							created: Date,
+							contributor: Iri,
+							modified: Date,
+							userIri: Iri,
 							userId: NCName,
 							familyName: string,
 							givenName: string,
@@ -28,6 +33,7 @@ export class OldapUser {
 							isActive?: boolean,
 							inProject?: InProject[],
 							hasPermissions?: QName[]) {
+		super(creator, created, contributor, modified);
 		this.#userIri = userIri;
 		this.#userId = userId;
 		this.familyName = familyName;
@@ -46,21 +52,25 @@ export class OldapUser {
 		return this.#userId;
 	}
 
-	static fromOldapJson(obj: any): OldapUser {
-		const userIri = new Iri(obj.userIri);
-		const userId = new NCName(obj.userId);
-		const familyName = obj.family_name;
-		const givenName = obj.given_name;
-		const email = obj.email;
-		const is_active = obj?.isActive;
+	static fromOldapJson(json: any): OldapUser {
+		const creator = new Iri(json.creator);
+		const created = new Date(json.created);
+		const contributor = new Iri(json.contributor);
+		const modified = new Date(json.modified);
+		const userIri = new Iri(json.userIri);
+		const userId = new NCName(json.userId);
+		const familyName = json.family_name;
+		const givenName = json.given_name;
+		const email = json.email;
+		const is_active = json?.isActive;
 
 		let in_project: InProject[] | undefined = undefined;
-		if (obj?.in_projects) {
-			if (Array.isArray(obj.in_projects)) {
-				in_project = obj.in_projects.map((item: {project: string, permissions: string[]}): InProject => {
+		if (json?.in_projects) {
+			if (Array.isArray(json.in_projects)) {
+				in_project = json.in_projects.map((item: {project: string, permissions: string[]}): InProject => {
 					const permissions = item.permissions.map((x) => (stringToAdminPermission(x)))
 					if (permissions === undefined) {
-						throw new OldapErrorInvalidValue(`${obj?.in_permissions} is not a valid AdminPermission`);
+						throw new OldapErrorInvalidValue(`${json?.in_permissions} is not a valid AdminPermission`);
 					}
 					return {
 						project: new Iri(item.project),
@@ -69,8 +79,20 @@ export class OldapUser {
 				});
 			}
 		}
-		const has_permissions: QName[] | undefined = obj?.has_permissions.map((x: string) => (QName.createQName(x)));
+		const has_permissions: QName[] | undefined = json?.has_permissions.map((x: string) => (QName.createQName(x)));
 
-		return new OldapUser(userIri, userId, familyName, givenName, email, is_active, in_project, has_permissions);
+		return new OldapUser(
+			creator,
+			created,
+			contributor,
+			modified,
+			userIri,
+			userId,
+			familyName,
+			givenName,
+			email,
+			is_active,
+			in_project,
+			has_permissions);
 	}
 }

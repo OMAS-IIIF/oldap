@@ -5,19 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ed8649a-7feb-4e03-9d06-4baf5e73d02d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/messages/de.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/messages/fr.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/oldap/classes/oldap_project.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/components/ProjectSelector.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/oldap/classes/oldap_object.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/oldap/enums/language.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/oldap/types/langstring.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messages/de-ch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/messages/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/messages/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messages/fr-ch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/messages/it.json" beforeDir="false" afterPath="$PROJECT_DIR$/messages/it.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.inlang/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/project.inlang/settings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/components/Loginout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/components/Loginout.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/oldap/classes/oldap_project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/oldap/classes/oldap_project.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/oldap/classes/oldap_user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/oldap/classes/oldap_user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/oldap/schemata/zod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/oldap/schemata/zod.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/+layout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+layout.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/auth/[userid]/+server.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/user/[userid]/+server.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +29,7 @@
         <option value="Loginout" />
         <option value="ErrorMsg" />
         <option value="TypeScript File" />
+        <option value="ProjectSelector" />
       </list>
     </option>
   </component>
@@ -125,7 +123,7 @@
       <workItem from="1735945903773" duration="4234000" />
       <workItem from="1736115930729" duration="4267000" />
       <workItem from="1736192693991" duration="48381000" />
-      <workItem from="1736455619740" duration="17626000" />
+      <workItem from="1736455619740" duration="29733000" />
     </task>
     <servers />
   </component>

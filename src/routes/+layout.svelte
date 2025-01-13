@@ -15,12 +15,24 @@
 		ImagePlaceholder,
 		Skeleton,
 		TextPlaceholder,
-		Avatar, Modal, Label, Input, Checkbox, Button, Select, Dropdown, DropdownHeader, DropdownItem, DropdownDivider
+		Avatar,
+		Modal,
+		Label,
+		Input,
+		Checkbox,
+		Button,
+		Select,
+		Dropdown,
+		DropdownHeader,
+		DropdownItem,
+		DropdownDivider,
+		Footer, FooterCopyright, FooterLinkGroup, FooterLink
 	} from 'flowbite-svelte';
 	import Loginout from '$lib/components/Loginout.svelte';
 	import ErrorMsg from '$lib/components/ErrorMsg.svelte';
 	import { userStore } from '$lib/stores/user';
 	import type { OldapUser } from '$lib/oldap/classes/oldap_user';
+	import ProjectSelector from '$lib/components/ProjectSelector.svelte';
 
 
 	let { children } = $props();
@@ -71,7 +83,7 @@
 </script>
 <!-- <Icon.UserSolid /> -->
 <ParaglideJS {i18n}>
-	<div class="relative px-8">
+	<div class="relative px-8  flex flex-col min-h-screen">
 		<Navbar class="px-2 sm:px-4 py-2.5 fixed w-full z-20 top-0 start-0 border-b">
 			<NavBrand href="/">
 				<img src="/images/oldap-logo.svg" class="me-3 h-6 sm:h-12" alt="OLDAP Logo" />
@@ -97,6 +109,8 @@
 				{/if}
 				<Loginout bind:isOpen={loginDialog} bind:this={loginout}/>
 			</div>
+			<div>
+			</div>
 
 			<NavHamburger />
 			<NavUl>
@@ -105,11 +119,25 @@
 				<NavLi href="/docs/components/navbar">Navbar</NavLi>
 				<NavLi href="/pricing">Pricing</NavLi>
 				<NavLi href="/contact">Contact</NavLi>
+				{#if logged_in}
+					<ProjectSelector projects="gaga" />
+				{/if}
 			</NavUl>
 		</Navbar>
 		<div style="height:300px;" class="overflow-scroll pb-16">
 			{@render children()}
 		</div>
+		<Footer class="bottom-0">
+			<div class="sm:flex sm:items-center sm:justify-between">
+				<FooterCopyright href="/" by="Flowbite™" year={2025} />
+				<FooterLinkGroup ulClass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+					<FooterLink href="/">About</FooterLink>
+					<FooterLink href="/">Privacy Policy</FooterLink>
+					<FooterLink href="/">Licensing</FooterLink>
+					<FooterLink href="/">Contact</FooterLink>
+				</FooterLinkGroup>
+			</div>
+		</Footer>
 	</div>
 	<ErrorMsg />
 </ParaglideJS>

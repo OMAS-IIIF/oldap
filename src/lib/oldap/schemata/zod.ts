@@ -13,7 +13,7 @@ export const schemas = {
 	LangString,
 };
 
-export const endpoints = makeApi([
+const endpoints = makeApi([
 	{
 		method: "post",
 		path: "/admin/auth/:userId",
@@ -390,7 +390,7 @@ export const endpoints = makeApi([
 				schema: z.string()
 			},
 		],
-		response: z.object({ project: z.string(), creation: z.string(), modified: z.string(), label: LangString, comment: LangString, message: z.string(), shortName: z.string(), "namespace IRI": z.string(), "project start": z.string(), "project end": z.string() }).partial().passthrough(),
+		response: z.object({ projectIri: z.string(), creator: z.string(), creation: z.string(), contributor: z.string(), modified: z.string(), label: LangString, comment: LangString, message: z.string(), shortName: z.string().regex(/^[a-zA-Z_][a-zA-Z0-9._-]*$/), "namespace IRI": z.string(), "project start": z.string(), "project end": z.string() }).partial().passthrough(),
 		errors: [
 			{
 				status: 403,
@@ -555,7 +555,7 @@ export const endpoints = makeApi([
 				schema: z.string()
 			},
 		],
-		response: z.object({ userIri: z.string(), userId: z.string(), family_name: z.string(), given_name: z.string(), email: z.string(), is_active: z.boolean().optional(), in_projects: z.array(z.object({ project: z.string(), permissions: z.array(z.string()) }).partial().passthrough()).optional(), has_permissions: z.array(z.string()).optional() }).passthrough(),
+		response: z.object({ creator: z.string(), created: z.string().datetime({ offset: true }), contributor: z.string(), modified: z.string().datetime({ offset: true }), userIri: z.string(), userId: z.string(), family_name: z.string(), given_name: z.string(), email: z.string(), is_active: z.boolean().optional(), in_projects: z.array(z.object({ project: z.string(), permissions: z.array(z.string()) }).partial().passthrough()).optional(), has_permissions: z.array(z.string()).optional() }).passthrough(),
 		errors: [
 			{
 				status: 403,

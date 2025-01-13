@@ -113,6 +113,7 @@
 		}
 		try {
 			const userdata = await client.getAdminuserUserId(config_user);
+			console.log(userdata)
 			const user = OldapUser.fromOldapJson(userdata);
 			userStore.set(user);
 		}
