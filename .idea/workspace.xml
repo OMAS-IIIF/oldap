@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ed8649a-7feb-4e03-9d06-4baf5e73d02d" name="Changes" comment="" />
+    <list default="true" id="1ed8649a-7feb-4e03-9d06-4baf5e73d02d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/components/Loginout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/components/Loginout.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/components/ProjectSelector.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/components/ProjectSelector.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/+layout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+layout.svelte" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,7 +57,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/Users/rosenth/ProgDev/OMAS/oldap/node_modules/prettier",
-    "settings.editor.selected.configurable": "terminal",
+    "settings.editor.selected.configurable": "JavaScript.Libraries",
     "ts.external.directory.path": "/Users/rosenth/ProgDev/OMAS/oldap/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   },
@@ -112,7 +117,7 @@
       <workItem from="1735945903773" duration="4234000" />
       <workItem from="1736115930729" duration="4267000" />
       <workItem from="1736192693991" duration="48381000" />
-      <workItem from="1736455619740" duration="30746000" />
+      <workItem from="1736455619740" duration="37379000" />
     </task>
     <servers />
   </component>

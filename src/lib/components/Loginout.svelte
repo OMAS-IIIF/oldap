@@ -90,6 +90,7 @@
 			isOpen = false;
 		}
 
+		/* TODO: make shared function to get authinfo! */
 		const authinfo_json = sessionStorage.getItem('authinfo')
 		let authinfo: AuthInfo;
 		if (authinfo_json) {

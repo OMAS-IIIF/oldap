@@ -12,16 +12,7 @@
 		NavLi,
 		NavUl,
 		NavHamburger,
-		ImagePlaceholder,
-		Skeleton,
-		TextPlaceholder,
 		Avatar,
-		Modal,
-		Label,
-		Input,
-		Checkbox,
-		Button,
-		Select,
 		Dropdown,
 		DropdownHeader,
 		DropdownItem,
@@ -39,13 +30,19 @@
 	let avatar_img = "/images/User_Avatar.png"
 	let loginDialog = $state(false);
 	let logged_in = $state(false);
-	let userid = $state('');
 	let family_name = $state('');
 	let given_name = $state('');
 	let gravatar_url = $state('');
 	let dropdownOpen = $state(false);
 	let loginout: Loginout;
 
+	/**
+	 * Retrieve the Gravatar Avatar icon
+	 *
+	 * @param email Email adress of user
+	 * @param size Size of gravatar image
+	 * @returns URL to fetch gravatar image
+	 */
 	function getGravatarUrl(email: string, size: number = 200): string {
 		// Convert email to lowercase and trim whitespace
 		const trimmedEmail = email.trim().toLowerCase();
@@ -57,6 +54,9 @@
 		return `https://www.gravatar.com/avatar/${hash}?s=${size}`;
 	}
 
+	/**
+	 * Perform a logout
+	 */
 	function call_logout() {
 		if (loginout) {
 			loginout.logout();
@@ -73,7 +73,6 @@
 		}
 		else {
 			logged_in = false;
-			//userid = '';
 			family_name = '';
 			given_name = '';
 			gravatar_url = '';
@@ -83,8 +82,12 @@
 </script>
 <!-- <Icon.UserSolid /> -->
 <ParaglideJS {i18n}>
-	<div class="relative px-8  flex flex-col min-h-screen">
-		<Navbar class="px-2 sm:px-4 py-2.5 fixed w-full z-20 top-0 start-0 border-b">
+
+	<!-- container for everything... -->
+	<div class="flex px-2 flex-col min-h-screen">
+
+		<!-- navigation bar -->
+		<Navbar class="sticky top-0 px-2 sm:px-4 py-2.5 fixed w-full z-20 top-0 start-0 border-b">
 			<NavBrand href="/">
 				<img src="/images/oldap-logo.svg" class="me-3 h-6 sm:h-12" alt="OLDAP Logo" />
 				<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">OLDAP</span>
@@ -124,17 +127,21 @@
 				{/if}
 			</NavUl>
 		</Navbar>
-		<div style="height:300px;" class="overflow-scroll pb-16">
+
+		<!-- Scrollable Content -->
+		<div style="height:300px;" class="flex-grow overflow-y-auto bg-gray-100 p-1 pb-8">
 			{@render children()}
 		</div>
-		<Footer class="bottom-0">
+
+		<!-- footer -->
+		<Footer class="sticky bottom-0 border-t py-4 px-2">
 			<div class="sm:flex sm:items-center sm:justify-between">
-				<FooterCopyright href="/" by="Flowbite™" year={2025} />
+				<FooterCopyright href="/" by="L. Rosenthaler" year={2025} copyrightMessage="(All rights reserved)"/>
 				<FooterLinkGroup ulClass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
 					<FooterLink href="/">About</FooterLink>
 					<FooterLink href="/">Privacy Policy</FooterLink>
 					<FooterLink href="/">Licensing</FooterLink>
-					<FooterLink href="/">Contact</FooterLink>
+					<FooterLink href="mailto:lukas.rosenthaler@gmail.com?subject=OLDAP">Contact</FooterLink>
 				</FooterLinkGroup>
 			</div>
 		</Footer>
