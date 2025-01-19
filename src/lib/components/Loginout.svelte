@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { createApiClient, endpoints } from '$lib/oldap/schemata/zod-old';
-	import { isErrorFromAlias } from '@zodios/core';
-	import { AxiosError } from 'axios';
+	import { createApiClient, endpoints } from '$lib/oldap/schemata/zod';
 	import { Button, Input, Label, Modal } from 'flowbite-svelte';
 	import type { AuthInfo } from '$lib/interfaces/authinfo';
 	import { errorInfoStore } from '$lib/stores/errorinfo';
 	import { Severity } from '$lib/interfaces/errorinfo';
-	import { User } from 'svelte-hero-icons';
 	import { OldapUser } from '$lib/oldap/classes/oldap_user';
 	import { userStore } from '$lib/stores/user';
 	import * as m from '$lib/paraglide/messages.js'
+	import { api } from '$lib/oldap/schemata/zod';
+	import { process_api_error } from '$lib/helpers/process_error';
 
 
 	const apiUrl = import.meta.env.VITE_API_URL;
@@ -18,42 +17,6 @@
 	let userid = $state('');
 	let password = $state('');
 
-	const process_error = (error: unknown) => {
-		if (isErrorFromAlias(endpoints, "postAdminauthUserId", error)) {
-			if (error.response) {
-				errorInfoStore.set({
-					errormsg: error.response.data.message as string,
-					errorcode: error.response.status,
-					severity: Severity.ERROR,
-				});
-			}
-			else {
-				errorInfoStore.set({
-					errormsg: m.unkown_api_error({num: 1}), // "Unknown API error (1)",
-					errorcode: 500,
-					severity: Severity.ERROR,
-				});
-			}
-			return;
-		}
-		else {
-			if (error instanceof AxiosError) {
-				errorInfoStore.set({
-					errormsg: error.code as string,
-					errorcode: error.status,
-					severity: Severity.ERROR,
-				});
-			}
-			else {
-				errorInfoStore.set({
-					errormsg: m.unkown_api_error({num: 1}), // "Unknown API error (2)",
-					errorcode: 500,
-					severity: Severity.ERROR,
-				});
-			}
-			return;
-		}
-	}
 
 	const login = async () => {
 		const client = createApiClient(apiUrl);
@@ -84,7 +47,7 @@
 			}
 		}
 		catch (error) {
-			process_error(error);
+			process_api_error(error);
 		}
 		finally {
 			isOpen = false;
@@ -119,7 +82,7 @@
 			userStore.set(user);
 		}
 		catch (error) {
-			process_error(error);
+			process_api_error(error);
 		}
 	}
 

@@ -1,5 +1,5 @@
 /*
- * npx openapi-zod-client ../oldap-api/API-def/oldap-api.yaml --with-docs -o src/lib/oldap/schemata/zod.ts
+ * npx openapi-zod-client ../oldap-api/API-def/oldap-api.yaml --with-docs -o src/lib/oldap/schemata/zod.ts  --export-types
  */
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
@@ -13,7 +13,7 @@ export const schemas = {
 	LangString,
 };
 
-const endpoints = makeApi([
+export const endpoints = makeApi([
 	{
 		method: "post",
 		path: "/admin/auth/:userId",
@@ -390,7 +390,7 @@ const endpoints = makeApi([
 				schema: z.string()
 			},
 		],
-		response: z.object({ projectIri: z.string(), creator: z.string(), creation: z.string(), contributor: z.string(), modified: z.string(), label: LangString, comment: LangString, message: z.string(), shortName: z.string().regex(/^[a-zA-Z_][a-zA-Z0-9._-]*$/), "namespace IRI": z.string(), "project start": z.string(), "project end": z.string() }).partial().passthrough(),
+		response: z.object({ projectIri: z.string(), creator: z.string(), created: z.string(), contributor: z.string(), modified: z.string(), label: LangString, comment: LangString, message: z.string(), shortName: z.string().regex(/^[a-zA-Z_][a-zA-Z0-9._-]*$/), "namespace IRI": z.string(), "project start": z.string(), "project end": z.string() }).partial().passthrough(),
 		errors: [
 			{
 				status: 403,
@@ -443,6 +443,38 @@ const endpoints = makeApi([
 				status: 500,
 				description: `Internal Server error. Should not be reachable`,
 				schema: z.object({ message: z.string() }).partial().passthrough()
+			},
+		]
+	},
+	{
+		method: "get",
+		path: "/admin/project/getid",
+		alias: "getAdminprojectgetid",
+		description: `Get the project shortname from the project IRI`,
+		requestFormat: "json",
+		parameters: [
+			{
+				name: "iri",
+				type: "Query",
+				schema: z.string()
+			},
+		],
+		response: z.object({ id: z.string() }).passthrough(),
+		errors: [
+			{
+				status: 400,
+				description: `Request has wrong or missing parameter`,
+				schema: z.object({ message: z.string() }).passthrough()
+			},
+			{
+				status: 404,
+				description: `Project not found`,
+				schema: z.object({ message: z.string() }).passthrough()
+			},
+			{
+				status: 500,
+				description: `Unknown error`,
+				schema: z.object({ message: z.string() }).passthrough()
 			},
 		]
 	},
