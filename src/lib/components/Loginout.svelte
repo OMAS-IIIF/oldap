@@ -9,6 +9,7 @@
 	import * as m from '$lib/paraglide/messages.js'
 	import { api } from '$lib/oldap/schemata/zod';
 	import { process_api_error } from '$lib/helpers/process_error';
+	import { projectStore } from '$lib/stores/project';
 
 
 	const apiUrl = import.meta.env.VITE_API_URL;
@@ -77,7 +78,6 @@
 		}
 		try {
 			const userdata = await client.getAdminuserUserId(config_user);
-			console.log(userdata)
 			const user = OldapUser.fromOldapJson(userdata);
 			userStore.set(user);
 		}
@@ -88,6 +88,7 @@
 
 	export const logout = () => {
 		userStore.set(null);
+		projectStore.set(null);
 		sessionStorage.removeItem('authinfo');
 	}
 

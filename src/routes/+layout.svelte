@@ -24,6 +24,7 @@
 	import { userStore } from '$lib/stores/user';
 	import type { OldapUser } from '$lib/oldap/classes/user';
 	import ProjectSelector from '$lib/components/ProjectSelector.svelte';
+	import { page } from '$app/state';
 
 
 	let { children } = $props();
@@ -35,6 +36,9 @@
 	let gravatar_url = $state('');
 	let dropdownOpen = $state(false);
 	let loginout: Loginout;
+	let activeUrl = $derived(page.url.pathname)
+
+	//activeUrl = page.url.pathname;
 
 	/**
 	 * Retrieve the Gravatar Avatar icon
@@ -87,7 +91,7 @@
 	<div class="flex px-2 flex-col min-h-screen">
 
 		<!-- navigation bar -->
-		<Navbar class="sticky top-0 px-2 sm:px-4 py-2.5 fixed w-full z-20 top-0 start-0 border-b">
+		<Navbar class="top-0 px-2 sm:px-4 py-2.5 fixed w-full z-20 start-0 border-b">
 			<NavBrand href="/">
 				<img src="/images/oldap-logo.svg" class="me-3 h-6 sm:h-12" alt="OLDAP Logo" />
 				<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">OLDAP</span>
@@ -98,7 +102,7 @@
 					<NavHamburger class1="w-full md:flex md:w-auto md:order-1" />
 					<!--<Loginout bind:isOpen={loginDialog}/>-->
 				{:else }
-					<Avatar id="avatar-menu" src={gravatar_url} />
+					<div class="p-3">{given_name} {family_name}</div> <Avatar id="avatar-menu" src={gravatar_url} />
 					<NavHamburger class1="w-full md:flex md:w-auto md:order-1" />
 					<Dropdown placement="bottom" triggeredBy="#avatar-menu" bind:open={dropdownOpen}>
 						<DropdownHeader>
@@ -112,24 +116,23 @@
 				{/if}
 				<Loginout bind:isOpen={loginDialog} bind:this={loginout}/>
 			</div>
-			<div>
-			</div>
+			<!--<div>
+			</div> -->
 
 			<NavHamburger />
-			<NavUl>
+			<NavUl {activeUrl}>
 				<NavLi href="/" active={true}>Home</NavLi>
 				<NavLi href="/about">About</NavLi>
-				<NavLi href="/docs/components/navbar">Navbar</NavLi>
-				<NavLi href="/pricing">Pricing</NavLi>
-				<NavLi href="/contact">Contact</NavLi>
 				{#if logged_in}
-					<ProjectSelector projects="gaga" />
+					<NavLi href="/admin">Admin</NavLi>
+					<ProjectSelector />
 				{/if}
 			</NavUl>
 		</Navbar>
 
+		<div class="h-20"></div>
 		<!-- Scrollable Content -->
-		<div style="height:300px;" class="flex-grow overflow-y-auto bg-gray-100 p-1 pb-8">
+		<div class="flex-grow overflow-y-auto bg-gray-100 p-1 pb-8">
 			{@render children()}
 		</div>
 
@@ -138,7 +141,7 @@
 			<div class="sm:flex sm:items-center sm:justify-between">
 				<FooterCopyright href="/" by="L. Rosenthaler" year={2025} copyrightMessage="(All rights reserved)"/>
 				<FooterLinkGroup ulClass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
-					<FooterLink href="/">About</FooterLink>
+					<FooterLink href="/about">About</FooterLink>
 					<FooterLink href="/">Privacy Policy</FooterLink>
 					<FooterLink href="/">Licensing</FooterLink>
 					<FooterLink href="mailto:lukas.rosenthaler@gmail.com?subject=OLDAP">Contact</FooterLink>

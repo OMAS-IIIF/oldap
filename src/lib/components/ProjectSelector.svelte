@@ -12,13 +12,18 @@
 	import { OldapProject } from '$lib/oldap/classes/project';
 	import { process_api_error } from '$lib/helpers/process_error';
 	import { languageTag } from '$lib/paraglide/runtime.js'
+	import { projectStore } from '$lib/stores/project';
 
 	const apiUrl = import.meta.env.VITE_API_URL;
-	let { projects } = $props();
-	let project_ids: {[key: string]: string} = {};
+	let projects: {[key: string]: OldapProject} = {};
 	let selected_project = $state('');
+	const lang = convertToLanguage(languageTag()) ?? Language.EN;
 
-
+	$effect(() => {
+		if (selected_project) {
+			projectStore.set(projects[selected_project] ?? null);
+		}
+	});
 
 	const client = createApiClient(apiUrl, {validate: 'all'});
 	userStore.subscribe(async (oldap_user: OldapUser | null) => {
@@ -74,15 +79,10 @@
 						process_api_error(error);
 						continue;
 					}
-					//project_ids.push(project.projectShortName.toString());
-					const lang = convertToLanguage(languageTag()) ?? Language.EN;
-
 					if (!selected_project) {
 						selected_project = project.projectShortName.toString();
 					}
-					project_ids[project.projectShortName.toString()] = project?.label?.[lang] ?? project.projectShortName.toString()
-					//project_ids.push({name: project?.label?.[lang] ?? project.projectShortName.toString(), id: project.projectShortName.toString()});
-					//console.log("PROJECT_DATA: ", project_data);
+					projects[project.projectShortName.toString()] = project;
 				}
 			}
 		}
@@ -90,12 +90,12 @@
 </script>
 
 <NavLi class="cursor-pointer">
-	Project: {project_ids[selected_project]}<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 dark:text-white inline" />
+	Project: {projects[selected_project]?.label?.[lang] ?? selected_project}<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 dark:text-white inline" />
 </NavLi>
 <Dropdown class="w-44 p-3 space-y-3 text-sm">
-	{#each Object.entries(project_ids) as [key, value]}
+	{#each Object.entries(projects) as [key, value]}
 		<li>
-			<Radio name="group1" bind:group={selected_project} value={key}>{value}</Radio>
+			<Radio name="group1" bind:group={selected_project} value={key}>{value?.label?.[lang] ?? key}</Radio>
 		</li>
 	{/each}
 </Dropdown>
