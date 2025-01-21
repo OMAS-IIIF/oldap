@@ -5,12 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ed8649a-7feb-4e03-9d06-4baf5e73d02d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lib/helpers/process_error.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/interfaces/attributeinfo.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/oldap/classes/propertyclass.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/oldap/enums/xsd_datatypes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/oldap/errors/OldapErrorImmutable.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/components/Loginout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/components/Loginout.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/components/ProjectSelector.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/components/ProjectSelector.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/oldap/schemata/zod-old.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/oldap/schemata/zod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/oldap/schemata/zod.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/oldap/classes/oldap_object.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/oldap/classes/object.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/oldap/classes/oldap_project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/oldap/classes/project.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/oldap/classes/oldap_user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/oldap/classes/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/stores/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/stores/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/+layout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+layout.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +125,7 @@
       <workItem from="1735945903773" duration="4234000" />
       <workItem from="1736115930729" duration="4267000" />
       <workItem from="1736192693991" duration="48381000" />
-      <workItem from="1736455619740" duration="52790000" />
+      <workItem from="1736455619740" duration="73613000" />
     </task>
     <servers />
   </component>

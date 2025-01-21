@@ -4,7 +4,7 @@
 	import type { AuthInfo } from '$lib/interfaces/authinfo';
 	import { errorInfoStore } from '$lib/stores/errorinfo';
 	import { Severity } from '$lib/interfaces/errorinfo';
-	import { OldapUser } from '$lib/oldap/classes/oldap_user';
+	import { OldapUser } from '$lib/oldap/classes/user';
 	import { userStore } from '$lib/stores/user';
 	import * as m from '$lib/paraglide/messages.js'
 	import { api } from '$lib/oldap/schemata/zod';

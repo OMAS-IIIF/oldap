@@ -22,7 +22,7 @@
 	import Loginout from '$lib/components/Loginout.svelte';
 	import ErrorMsg from '$lib/components/ErrorMsg.svelte';
 	import { userStore } from '$lib/stores/user';
-	import type { OldapUser } from '$lib/oldap/classes/oldap_user';
+	import type { OldapUser } from '$lib/oldap/classes/user';
 	import ProjectSelector from '$lib/components/ProjectSelector.svelte';
 
 

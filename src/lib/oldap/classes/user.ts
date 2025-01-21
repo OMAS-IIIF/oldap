@@ -3,7 +3,7 @@ import { Iri } from '$lib/oldap/types/xsd_iri';
 import { QName } from '$lib/oldap/types/xsd_qname';
 import { AdminPermission, stringToAdminPermission } from '$lib/oldap/enums/admin_permissions';
 import { OldapErrorInvalidValue } from '$lib/oldap/errors/OldapErrorInvalidValue';
-import { OldapObject } from '$lib/oldap/classes/oldap_object';
+import { OldapObject } from '$lib/oldap/classes/object';
 
 
 export interface InProject {

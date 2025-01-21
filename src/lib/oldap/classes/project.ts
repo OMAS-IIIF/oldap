@@ -1,6 +1,6 @@
 import { Iri } from '$lib/oldap/types/xsd_iri';
 import { NCName } from '$lib/oldap/types/xsd_ncname';
-import { OldapObject } from '$lib/oldap/classes/oldap_object';
+import { OldapObject } from '$lib/oldap/classes/object';
 import { jsonToLangString, type LangString } from '$lib/oldap/types/langstring';
 
 export class OldapProject extends OldapObject{

@@ -1,23 +1,23 @@
 <script lang="ts">
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
-	import { Dropdown, DropdownItem, NavLi } from 'flowbite-svelte';
+	import { Dropdown, DropdownItem, NavLi, Radio } from 'flowbite-svelte';
 	import { userStore } from '$lib/stores/user';
-	import type { OldapUser } from '$lib/oldap/classes/oldap_user';
+	import type { OldapUser } from '$lib/oldap/classes/user';
 	import { createApiClient, endpoints } from '$lib/oldap/schemata/zod';
 	import type { AuthInfo } from '$lib/interfaces/authinfo';
 	import { errorInfoStore } from '$lib/stores/errorinfo';
 	import { Severity } from '$lib/interfaces/errorinfo';
 	import * as m from '$lib/paraglide/messages.js'
 	import { convertToLanguage, Language } from '$lib/oldap/enums/language';
-	import { OldapProject } from '$lib/oldap/classes/oldap_project';
+	import { OldapProject } from '$lib/oldap/classes/project';
 	import { process_api_error } from '$lib/helpers/process_error';
 	import { languageTag } from '$lib/paraglide/runtime.js'
 
 	const apiUrl = import.meta.env.VITE_API_URL;
 	let { projects } = $props();
-	let project = $state('Project');
-	// let project_iris: string[] | undefined = $state(undefined);
-	let project_ids: string[] = [];
+	let project_ids: {[key: string]: string} = {};
+	let selected_project = $state('');
+
 
 
 	const client = createApiClient(apiUrl, {validate: 'all'});
@@ -77,7 +77,11 @@
 					//project_ids.push(project.projectShortName.toString());
 					const lang = convertToLanguage(languageTag()) ?? Language.EN;
 
-					project_ids.push(project?.label[lang] ?? project.projectShortName);
+					if (!selected_project) {
+						selected_project = project.projectShortName.toString();
+					}
+					project_ids[project.projectShortName.toString()] = project?.label?.[lang] ?? project.projectShortName.toString()
+					//project_ids.push({name: project?.label?.[lang] ?? project.projectShortName.toString(), id: project.projectShortName.toString()});
 					//console.log("PROJECT_DATA: ", project_data);
 				}
 			}
@@ -86,10 +90,12 @@
 </script>
 
 <NavLi class="cursor-pointer">
-	{project}<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 dark:text-white inline" />
+	Project: {project_ids[selected_project]}<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 dark:text-white inline" />
 </NavLi>
-<Dropdown>
-	{#each project_ids as gugus}
-		<DropdownItem>{gugus}</DropdownItem>
+<Dropdown class="w-44 p-3 space-y-3 text-sm">
+	{#each Object.entries(project_ids) as [key, value]}
+		<li>
+			<Radio name="group1" bind:group={selected_project} value={key}>{value}</Radio>
+		</li>
 	{/each}
 </Dropdown>
