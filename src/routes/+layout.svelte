@@ -130,6 +130,7 @@
 			</NavUl>
 		</Navbar>
 
+		<!-- spacer for navbar -->
 		<div class="h-20"></div>
 		<!-- Scrollable Content -->
 		<div class="flex-grow overflow-y-auto bg-gray-100 p-1 pb-8">
