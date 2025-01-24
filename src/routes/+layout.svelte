@@ -91,7 +91,7 @@
 	<div class="flex px-2 flex-col min-h-screen">
 
 		<!-- navigation bar -->
-		<Navbar class="top-0 px-2 sm:px-4 py-2.5 fixed w-full z-20 start-0 border-b">
+		<Navbar class="sticky top-0 px-2 sm:px-4 py-2.5 w-full z-20 start-0 border-b">
 			<NavBrand href="/">
 				<img src="/images/oldap-logo.svg" class="me-3 h-6 sm:h-12" alt="OLDAP Logo" />
 				<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">OLDAP</span>
@@ -131,14 +131,14 @@
 		</Navbar>
 
 		<!-- spacer for navbar -->
-		<div class="h-20"></div>
+		<!-- <div class="h-20"></div> -->
 		<!-- Scrollable Content -->
-		<div class="flex-grow overflow-y-auto bg-gray-100 p-1 pb-8">
+		<div class="flex-grow overflow-y-auto bg-gray-100 p-1 pb-20">
 			{@render children()}
 		</div>
 
 		<!-- footer -->
-		<Footer class="sticky bottom-0 border-t py-4 px-2">
+		<Footer class="fixed bottom-0 border-t w-full bg-white  shadow-md py-4 px-10">
 			<div class="sm:flex sm:items-center sm:justify-between">
 				<FooterCopyright href="/" by="L. Rosenthaler" year={2025} copyrightMessage="(All rights reserved)"/>
 				<FooterLinkGroup ulClass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">

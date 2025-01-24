@@ -486,12 +486,17 @@ export const endpoints = makeApi([
 		requestFormat: "json",
 		parameters: [
 			{
-				name: "body",
-				type: "Body",
-				schema: z.object({ label: z.string(), comment: z.string() }).partial().passthrough()
+				name: "label",
+				type: "Query",
+				schema: z.string().optional()
+			},
+			{
+				name: "comment",
+				type: "Query",
+				schema: z.string().optional()
 			},
 		],
-		response: z.object({ message: z.string() }).partial().passthrough(),
+		response: z.array(z.string()),
 		errors: [
 			{
 				status: 400,
@@ -640,6 +645,75 @@ export const endpoints = makeApi([
 				status: 500,
 				description: `Internal Server error. Should not be reachable`,
 				schema: z.void()
+			},
+		]
+	},
+	{
+		method: "get",
+		path: "/admin/user/get",
+		alias: "getAdminuserget",
+		description: `Get all user data from an userIri`,
+		requestFormat: "json",
+		parameters: [
+			{
+				name: "iri",
+				type: "Query",
+				schema: z.string()
+			},
+		],
+		response: z.object({ creator: z.string(), created: z.string().datetime({ offset: true }), contributor: z.string(), modified: z.string().datetime({ offset: true }), userIri: z.string(), userId: z.string(), family_name: z.string(), given_name: z.string(), email: z.string(), is_active: z.boolean().optional(), in_projects: z.array(z.object({ project: z.string(), permissions: z.array(z.string()) }).partial().passthrough()).optional(), has_permissions: z.array(z.string()).optional() }).passthrough(),
+		errors: [
+			{
+				status: 403,
+				description: `Unauthorized`,
+				schema: z.object({ message: z.string() }).partial().passthrough()
+			},
+			{
+				status: 404,
+				description: `Not Found`,
+				schema: z.object({ message: z.string() }).partial().passthrough()
+			},
+		]
+	},
+	{
+		method: "get",
+		path: "/admin/user/search",
+		alias: "getAdminusersearch",
+		description: `Search for a given user`,
+		requestFormat: "json",
+		parameters: [
+			{
+				name: "userId",
+				type: "Query",
+				schema: z.string().optional()
+			},
+			{
+				name: "familyName",
+				type: "Query",
+				schema: z.string().optional()
+			},
+			{
+				name: "givenName",
+				type: "Query",
+				schema: z.string().optional()
+			},
+			{
+				name: "inProject",
+				type: "Query",
+				schema: z.string().optional()
+			},
+		],
+		response: z.array(z.string()),
+		errors: [
+			{
+				status: 400,
+				description: `Several Errors that involve bad requests`,
+				schema: z.object({ message: z.string() }).partial().passthrough()
+			},
+			{
+				status: 403,
+				description: `Unauthorized`,
+				schema: z.object({ message: z.string() }).partial().passthrough()
 			},
 		]
 	},
