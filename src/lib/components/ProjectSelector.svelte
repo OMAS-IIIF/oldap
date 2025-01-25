@@ -3,7 +3,6 @@
 	import { Dropdown, DropdownItem, NavLi, Radio } from 'flowbite-svelte';
 	import { userStore } from '$lib/stores/user';
 	import type { OldapUser } from '$lib/oldap/classes/user';
-	import { createApiClient, endpoints } from '$lib/oldap/schemata/zod';
 	import type { AuthInfo } from '$lib/interfaces/authinfo';
 	import { errorInfoStore } from '$lib/stores/errorinfo';
 	import { Severity } from '$lib/interfaces/errorinfo';
@@ -13,8 +12,8 @@
 	import { process_api_error } from '$lib/helpers/process_error';
 	import { languageTag } from '$lib/paraglide/runtime.js'
 	import { projectStore } from '$lib/stores/project';
+	import { apiClient } from '$lib/shared/apiClient';
 
-	const apiUrl = import.meta.env.VITE_API_URL;
 	let projects: {[key: string]: OldapProject} = {};
 	let selected_project = $state('');
 	const lang = convertToLanguage(languageTag()) ?? Language.EN;
@@ -25,7 +24,6 @@
 		}
 	});
 
-	const client = createApiClient(apiUrl, {validate: 'all'});
 	userStore.subscribe(async (oldap_user: OldapUser | null) => {
 		if (oldap_user) {
 			const project_iris = oldap_user.inProject?.map((x) => (x.project.toString()));
@@ -56,7 +54,7 @@
 					}
 					let projectid: string
 					try {
-						const project_iddata = await client.getAdminprojectgetid(config_projectid);
+						const project_iddata = await apiClient.getAdminprojectgetid(config_projectid);
 						projectid = project_iddata.id;
 					}
 					catch (error) {
@@ -72,7 +70,7 @@
 					}
 					let project: OldapProject;
 					try {
-						const project_data = await client.getAdminprojectProjectId(config_project);
+						const project_data = await apiClient.getAdminprojectProjectId(config_project);
 						project = OldapProject.fromOldapJson(project_data);
 					}
 					catch (error) {

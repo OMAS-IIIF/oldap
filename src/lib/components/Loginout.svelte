@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { createApiClient, endpoints } from '$lib/oldap/schemata/zod';
 	import { Button, Input, Label, Modal } from 'flowbite-svelte';
 	import type { AuthInfo } from '$lib/interfaces/authinfo';
 	import { errorInfoStore } from '$lib/stores/errorinfo';
@@ -7,12 +6,9 @@
 	import { OldapUser } from '$lib/oldap/classes/user';
 	import { userStore } from '$lib/stores/user';
 	import * as m from '$lib/paraglide/messages.js'
-	import { api } from '$lib/oldap/schemata/zod';
 	import { process_api_error } from '$lib/helpers/process_error';
 	import { projectStore } from '$lib/stores/project';
-
-
-	const apiUrl = import.meta.env.VITE_API_URL;
+	import { apiClient } from '$lib/shared/apiClient';
 
 	let { isOpen = $bindable() } = $props()
 	let userid = $state('');
@@ -20,7 +16,6 @@
 
 
 	const login = async () => {
-		const client = createApiClient(apiUrl);
 		const config_auth = {
 			headers: {
 				'Accept': 'application/json',
@@ -30,7 +25,7 @@
 		}
 		const data = {password: password as string};
 		try {
-			const authdata = await client.postAdminauthUserId(data, config_auth);
+			const authdata = await apiClient.postAdminauthUserId(data, config_auth);
 			if (authdata.token) {
 				const authinfo: AuthInfo = {
 					userid: userid,
@@ -77,7 +72,7 @@
 			},
 		}
 		try {
-			const userdata = await client.getAdminuserUserId(config_user);
+			const userdata = await apiClient.getAdminuserUserId(config_user);
 			const user = OldapUser.fromOldapJson(userdata);
 			userStore.set(user);
 		}

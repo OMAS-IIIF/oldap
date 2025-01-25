@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ed8649a-7feb-4e03-9d06-4baf5e73d02d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/lib/components/UsersList.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/shared/apiClient.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/oldap/schemata/zod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/oldap/schemata/zod.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/+layout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+layout.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/components/Loginout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/components/Loginout.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/components/ProjectSelector.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/components/ProjectSelector.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/admin/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/+page.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +26,7 @@
         <option value="ErrorMsg" />
         <option value="ProjectSelector" />
         <option value="+page" />
+        <option value="UsersList" />
         <option value="TypeScript File" />
       </list>
     </option>
@@ -118,7 +121,7 @@
       <workItem from="1735945903773" duration="4234000" />
       <workItem from="1736115930729" duration="4267000" />
       <workItem from="1736192693991" duration="48381000" />
-      <workItem from="1736455619740" duration="105440000" />
+      <workItem from="1736455619740" duration="114100000" />
     </task>
     <servers />
   </component>
