@@ -18,6 +18,8 @@
 	import { Severity } from '$lib/interfaces/errorinfo';
 	import * as m from '$lib/paraglide/messages.js'
 	import { OldapUser } from '$lib/oldap/classes/user';
+	import { process_api_error } from '$lib/helpers/process_error';
+	import ModUser from '$lib/components/ModUser.svelte';
 
 	let { project = $bindable() } = $props();
 
@@ -28,6 +30,8 @@
 	const authinfo_json = sessionStorage.getItem('authinfo');
 
 	let users: {[key: string]: OldapUser} = $state({});
+
+	let mod_user_open = $state(false);
 
 	let authinfo: AuthInfo;
 	if (authinfo_json) {
@@ -55,7 +59,6 @@
 			//
 			apiClient.getAdminusersearch(config_usersearch)
 				.then((user_iris) => {
-					console.log("========>", user_iris)
 					user_iris.forEach((x) => {
 						const config_userdata = {
 							queries: { iri: x },
@@ -75,12 +78,12 @@
 								console.log(user);
 							})
 							.catch((err) => {
-								console.log(err);
+								process_api_error(err);
 							})
 					});
 				})
 				.catch((err) => {
-					console.log(err);
+					process_api_error(err);
 				});
 		}
 	});
@@ -116,6 +119,8 @@
 
 </script>
 
+<Button onclick={() => {mod_user_open = true; console.log("***********GAGA************");} }>Add new user</Button>
+<div class="h-6"> </div>
 <Table hoverable={true} shadow>
 	<TableHead theadClass="text-xs uppercase divide-blue-500">
 		<TableHeadCell>User ID</TableHeadCell>
@@ -147,4 +152,6 @@
 		<Button color="red" on:click={handleYes}>Yes, I'm sure</Button>
 	</div>
 </Modal>
+
+<ModUser bind:modUserOpen={mod_user_open} />
 
