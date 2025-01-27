@@ -25,3 +25,6 @@ vite.config.ts.timestamp-*
 
 # Paraglide
 src/lib/paraglide
+/.idea/workspace.xml
+/.idea/oldap.iml
+/.idea/modules.xml
