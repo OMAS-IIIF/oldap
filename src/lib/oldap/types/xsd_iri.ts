@@ -20,7 +20,8 @@ export class Iri {
 		}
 		else if (typeof iri === 'string' && fragment === undefined) {
 			const parts = iri.split(':');
-			if (parts[0] === "http" || parts[0] === "https" || parts[1] === "urn") {
+			console.log("??????>", parts)
+			if (parts[0] === "http" || parts[0] === "https" || parts[0] === "urn") {
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				const parsed = new URL(iri);
 				this.iri = iri;
@@ -28,7 +29,7 @@ export class Iri {
 			}
 			else {
 				if (parts.length != 2) {
-					throw new Error("Invalid IRI format");
+					throw new Error(`Invalid IRI format: "${iri}"`);
 				}
 				this.iri = iri;
 				this.representation = "QNAME";
