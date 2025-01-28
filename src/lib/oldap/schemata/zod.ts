@@ -448,26 +448,6 @@ export const endpoints = makeApi([
 	},
 	{
 		method: "get",
-		path: "/admin/project/all",
-		alias: "getAdminprojectall",
-		description: `The user that has the rights (given by his token) searches for given parameters in projects`,
-		requestFormat: "json",
-		response: z.array(z.string()),
-		errors: [
-			{
-				status: 400,
-				description: `Several Errors that involve bad requests`,
-				schema: z.object({ message: z.string() }).partial().passthrough()
-			},
-			{
-				status: 403,
-				description: `Unauthorized`,
-				schema: z.object({ message: z.string() }).partial().passthrough()
-			},
-		]
-	},
-	{
-		method: "get",
 		path: "/admin/project/getid",
 		alias: "getAdminprojectgetid",
 		description: `Get the project shortname from the project IRI`,
@@ -516,7 +496,7 @@ export const endpoints = makeApi([
 				schema: z.string().optional()
 			},
 		],
-		response: z.array(z.string()),
+		response: z.array(z.array(z.string())),
 		errors: [
 			{
 				status: 400,

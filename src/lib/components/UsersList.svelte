@@ -26,6 +26,7 @@
 	let toggleConformModal = $state(false)
 	let toggleChecked: {[key: string]: boolean} = $state({});
 	let userid: string = $state('');
+	let edit_user: OldapUser | null = $state(null);
 
 	const authinfo_json = sessionStorage.getItem('authinfo');
 
@@ -119,7 +120,7 @@
 
 </script>
 
-<Button onclick={() => {mod_user_open = true; console.log("***********GAGA************");} }>Add new user</Button>
+<Button onclick={() => {mod_user_open = true; edit_user = null; } }>Add new user</Button>
 <div class="h-6"> </div>
 <Table hoverable={true} shadow>
 	<TableHead theadClass="text-xs uppercase divide-blue-500">
@@ -138,7 +139,15 @@
 				<TableBodyCell>{u.givenName}</TableBodyCell>
 				<TableBodyCell>{u.email}</TableBodyCell>
 				<TableBodyCell><Toggle checked={toggleChecked[u_id.toString()]} on:click={(e) => toggle_active(e, u_id.toString())} /></TableBodyCell>
-				<TableBodyCell><span class="flex flex-row"><EditOutline class="w-5 h-5" /><TrashBinOutline class="w-5 h-5" /></span></TableBodyCell>
+				<TableBodyCell>
+					<span class="flex flex-row">
+						<EditOutline class="w-5 h-5" role="button" onclick={() => {
+							edit_user = u;
+							mod_user_open = true;
+						}} />
+						<TrashBinOutline class="w-5 h-5" role="button"/>
+					</span>
+				</TableBodyCell>
 			</TableBodyRow>
 		{/each}
 	</TableBody>
@@ -153,5 +162,5 @@
 	</div>
 </Modal>
 
-<ModUser bind:modUserOpen={mod_user_open} />
+<ModUser bind:modUserOpen={mod_user_open} bind:user={edit_user}/>
 
