@@ -20,7 +20,6 @@ export class Iri {
 		}
 		else if (typeof iri === 'string' && fragment === undefined) {
 			const parts = iri.split(':');
-			console.log("??????>", parts)
 			if (parts[0] === "http" || parts[0] === "https" || parts[0] === "urn") {
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				const parsed = new URL(iri);

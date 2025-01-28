@@ -55,7 +55,7 @@
 
 	projectStore.subscribe((newproject: OldapProject | null) => {
 		project = newproject;
-	})
+	});
 
 
 </script>

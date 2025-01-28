@@ -1,20 +1,44 @@
 <script lang="ts">
 
-	import { apiClient } from '$lib/shared/apiClient';
-	import { Button, Dropdown, Input, Label, Modal, Toggle } from 'flowbite-svelte';
+	import { Button, Input, Label, Modal, Toggle } from 'flowbite-svelte';
 	import ProjectMember from '$lib/components/ProjectMember.svelte';
-	import type { AuthInfo } from '$lib/interfaces/authinfo';
-	import type { InProject } from '$lib/oldap/classes/user';
+	import type { InProject, OldapUser } from '$lib/oldap/classes/user';
 	import { AdminPermission } from '$lib/oldap/enums/admin_permissions';
+	import { userStore } from '$lib/stores/user';
+	import { projectStore } from '$lib/stores/project';
+	import type { OldapProject } from '$lib/oldap/classes/project';
 
 	let { modUserOpen = $bindable(), user = $bindable() } = $props();
 
+	let current_user: OldapUser | null = $state(null);
+	let current_project: OldapProject | null = $state(null);
 	let userId: string = $state('')
 	let givenName: string = $state('');
 	let familyName: string = $state('');
 	let email: string = $state('');
 	let isActive: boolean = $state(false);
 	let isRoot: boolean = false;
+
+	//
+	// Get the current user and check if she/he is member of the SystemProject with ADMIN_OLDAP rights
+	//
+	userStore.subscribe(async (newuser: OldapUser | null) => {
+		current_user = newuser;
+		isRoot = false;
+		newuser?.inProject?.forEach((in_project: InProject) => {
+			if ((in_project.project.toString() === 'oldap:SystemProject') && in_project.permissions.includes(AdminPermission.ADMIN_OLDAP)) {
+				isRoot = true;
+			}
+		});
+	});
+
+	//
+	// Get the current project of the current user
+	//
+	projectStore.subscribe((newproject: OldapProject | null) => {
+		current_project = newproject;
+	});
+
 
 	$effect(() => {
 		if (user) {
@@ -23,11 +47,6 @@
 			familyName = user.familyName.toString();
 			email = user.email.toString();
 			isActive = user.isActive;
-			user.inProject.forEach((inProject: InProject) => {
-				if (AdminPermission.ADMIN_OLDAP in inProject) {
-					isRoot = true;
-				}
-			});
 		}
 		else {
 			userId = '';
@@ -64,7 +83,7 @@
 			<Toggle bind:checked={isActive}></Toggle>
 
 			<Label class="flex items-center text-xs rtl:text-right font-medium">In project</Label>
-			<ProjectMember aperms={[]}/>
+			<ProjectMember current_user={current_user} current_project={current_project} isRoot={isRoot} user={user}/>
 		</div>
 		<div class="flex flex-col-2 justify-center space-x-6">
 			<Button type="button" class="w-full1">Add user</Button>
