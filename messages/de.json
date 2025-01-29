@@ -7,5 +7,12 @@
 	"do_login": "Anmeldung bei Ihrem Konto",
 	"lost_pw": "Passwort vergessen?",
 	"not_registered": "Nicht registriert?",
-	"apply_account": "Konto beantragen"
+	"apply_account": "Konto beantragen",
+	"perm_user": "Benutzer",
+	"perm_user_tip": "Das Recht, Benutzer im Projekt anzulegen oder zu modifizieren",
+	"perm_lists": "Kategorien",
+	"perm_lists_tip": "Das Recht, Kategorien und Listen zu verändern oder hinzuzufügen",
+	"perm_resources": "Datenobjekte",
+	"perm_resourced_tip": "Das Recht, auf alle Datenobjekte innerhalb des Projektes zu zugreifen",
+	"perm_permissions": "Datenberechtigungen"
 }

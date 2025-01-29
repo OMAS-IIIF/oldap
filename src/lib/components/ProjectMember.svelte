@@ -9,7 +9,7 @@
 	 */
 	let { current_user, current_project, isRoot, user } = $props();
 
-	import { Accordion, AccordionItem, Button, Checkbox, Dropdown, Radio } from 'flowbite-svelte';
+	import { Accordion, AccordionItem, Button, Checkbox, Dropdown, Radio, Tooltip } from 'flowbite-svelte';
 	import { apiClient } from '$lib/shared/apiClient';
 	import type { AuthInfo } from '$lib/interfaces/authinfo';
 	import { errorInfoStore } from '$lib/stores/errorinfo';
@@ -23,13 +23,18 @@
 	let projectShortNames: string[] = $state([]);
 	let current_user_permissions: AdminPermission[] = $state([]);
 
+	let perm_users_disabled = $derived(!(isRoot || current_user_permissions.includes(AdminPermission.ADMIN_USERS)));
+	let perm_lists_disabled = $derived(!(isRoot || current_user_permissions.includes(AdminPermission.ADMIN_LISTS)));
+	let perm_resources_disabled = $derived(!(isRoot || current_user_permissions.includes(AdminPermission.ADMIN_RESOURCES)));
+	let perm_permissions_disabled = $derived(!(isRoot || current_user_permissions.includes(AdminPermission.ADMIN_PERMISSION_SETS)));
+	let perm_model_disabled = $derived(!(isRoot || current_user_permissions.includes(AdminPermission.ADMIN_MODEL)));
+	let perm_create_disabled = $derived(!(isRoot || current_user_permissions.includes(AdminPermission.ADMIN_CREATE)));
+
 	current_user.inProject.forEach((item: InProject) => {
-		console.log(":::::::::>:>>>>>>>", item)
 		if (item.project.toString() === current_project.projectIri.toString()) {
 			current_user_permissions = item.permissions;
 		}
 	});
-
 
 	if (authinfo_json) {
 		authinfo = JSON.parse(authinfo_json);
@@ -67,31 +72,17 @@
 </script>
 
 
-<Accordion>
+<Accordion activeClass="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800" inactiveClass="text-gray-500 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800">
 	{#each projectShortNames as shortname}
 		<AccordionItem paddingDefault="p-1 px-2">
 			<span slot="header">{shortname}</span>
-			{#if isRoot ||  current_user_permissions.includes(AdminPermission.ADMIN_USERS)}
-				<Checkbox>Users</Checkbox>
-			{/if}
-			{#if isRoot ||  current_user_permissions.includes(AdminPermission.ADMIN_LISTS)}
-				<Checkbox>Lists</Checkbox>
-			{/if}
-			{#if isRoot || current_user_permissions.includes(AdminPermission.ADMIN_RESOURCES)}
-				<Checkbox>Resources</Checkbox>
-			{/if}
-			{#if isRoot || current_user_permissions.includes(AdminPermission.ADMIN_PERMISSION_SETS)}
-				<Checkbox>PermissionSets</Checkbox>
-			{/if}
-			{#if isRoot || current_user_permissions.includes(AdminPermission.ADMIN_MODEL)}
-				<Checkbox>Datamodel</Checkbox>
-			{/if}
-			{#if isRoot || current_user_permissions.includes(AdminPermission.ADMIN_CREATE)}
-				<Checkbox>Create</Checkbox>
-			{/if}
-			{#if isRoot}
-				<Checkbox>System</Checkbox>
-			{/if}
+			<Checkbox disabled={perm_users_disabled}>Users</Checkbox><Tooltip>GAGA AGA AGA AGA AGA AG</Tooltip>
+			<Checkbox disabled={perm_lists_disabled}>Lists</Checkbox>
+			<Checkbox disabled={perm_resources_disabled}>Resources</Checkbox>
+			<Checkbox disabled={perm_permissions_disabled}>PermissionSets</Checkbox>
+			<Checkbox disabled={perm_model_disabled}>Datamodel</Checkbox>
+			<Checkbox disabled={perm_create_disabled}>Create</Checkbox>
+			<Checkbox disabled={!isRoot}>System</Checkbox>
 		</AccordionItem>
 		{/each}
 </Accordion>
