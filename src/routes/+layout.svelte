@@ -25,6 +25,7 @@
 	import type { OldapUser } from '$lib/oldap/classes/user';
 	import ProjectSelector from '$lib/components/ProjectSelector.svelte';
 	import { page } from '$app/state';
+	import LangChooser from '$lib/components/LangChooser.svelte';
 
 
 	let { children } = $props();
@@ -105,13 +106,13 @@
 					<div class="p-3">{given_name} {family_name}</div> <Avatar id="avatar-menu" src={gravatar_url} />
 					<NavHamburger class1="w-full md:flex md:w-auto md:order-1" />
 					<Dropdown placement="bottom" triggeredBy="#avatar-menu" bind:open={dropdownOpen}>
-						<DropdownHeader>
+						<DropdownHeader  class="text-xs">
 							<span class="block text-sm">{given_name} {family_name}</span>
 						</DropdownHeader>
-						<DropdownItem>Change password...</DropdownItem>
-						<DropdownItem>Change/set avatar image</DropdownItem>
+						<DropdownItem class="text-xs">Change password...</DropdownItem>
+						<DropdownItem class="text-xs">Change/set avatar image</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem onclick={() => {call_logout(); dropdownOpen = false;}}>Sign out</DropdownItem>
+						<DropdownItem  class="text-xs" onclick={() => {call_logout(); dropdownOpen = false;}}>Sign out</DropdownItem>
 					</Dropdown>
 				{/if}
 				<Loginout bind:isOpen={loginDialog} bind:this={loginout}/>
@@ -127,6 +128,7 @@
 					<NavLi href="/admin">Admin</NavLi>
 					<ProjectSelector />
 				{/if}
+				<LangChooser />
 			</NavUl>
 		</Navbar>
 

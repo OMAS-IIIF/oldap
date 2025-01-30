@@ -71,18 +71,30 @@
 
 </script>
 
-
 <Accordion activeClass="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800" inactiveClass="text-gray-500 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800">
 	{#each projectShortNames as shortname}
 		<AccordionItem paddingDefault="p-1 px-2">
 			<span slot="header">{shortname}</span>
-			<Checkbox disabled={perm_users_disabled}>Users</Checkbox><Tooltip>GAGA AGA AGA AGA AGA AG</Tooltip>
-			<Checkbox disabled={perm_lists_disabled}>Lists</Checkbox>
-			<Checkbox disabled={perm_resources_disabled}>Resources</Checkbox>
-			<Checkbox disabled={perm_permissions_disabled}>PermissionSets</Checkbox>
-			<Checkbox disabled={perm_model_disabled}>Datamodel</Checkbox>
-			<Checkbox disabled={perm_create_disabled}>Create</Checkbox>
-			<Checkbox disabled={!isRoot}>System</Checkbox>
+			<Checkbox disabled={perm_users_disabled}>{m.perm_user()}</Checkbox>
+			<Tooltip class="text-xs">{m.perm_user_tip()}</Tooltip>
+
+			<Checkbox disabled={perm_lists_disabled}>{m.perm_lists()}</Checkbox>
+			<Tooltip class="text-xs">{m.perm_lists_tip()}</Tooltip>
+
+			<Checkbox disabled={perm_resources_disabled}>{m.perm_resources()}</Checkbox>
+			<Tooltip class="text-xs">{m.perm_resources_tip()}</Tooltip>
+
+			<Checkbox disabled={perm_permissions_disabled}>{m.perm_permissions()}</Checkbox>
+			<Tooltip class="text-xs">{m.perm_permissions_tip()}</Tooltip>
+
+			<Checkbox disabled={perm_model_disabled}>{m.perm_model()}</Checkbox>
+			<Tooltip class="text-xs">{m.perm_model_tip()}</Tooltip>
+
+			<Checkbox disabled={perm_create_disabled}>{m.perm_create()}</Checkbox>
+			<Tooltip class="text-xs">{m.perm_create_tip()}</Tooltip>
+
+			<Checkbox disabled={!isRoot}>{m.perm_system()}</Checkbox>
+			<Tooltip class="text-xs">{m.perm_system_tip()}</Tooltip>
 		</AccordionItem>
 		{/each}
 </Accordion>

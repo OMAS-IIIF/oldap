@@ -7,6 +7,7 @@
 	import { userStore } from '$lib/stores/user';
 	import { projectStore } from '$lib/stores/project';
 	import type { OldapProject } from '$lib/oldap/classes/project';
+	import * as m from '$lib/paraglide/messages.js'
 
 	let { modUserOpen = $bindable(), user = $bindable() } = $props();
 
@@ -17,7 +18,7 @@
 	let familyName: string = $state('');
 	let email: string = $state('');
 	let isActive: boolean = $state(false);
-	let isRoot: boolean = false;
+	let isRoot: boolean = $state(false);
 
 	//
 	// Get the current user and check if she/he is member of the SystemProject with ADMIN_OLDAP rights
@@ -58,7 +59,7 @@
 	});
 </script>
 
-<Modal title="Add new user" bind:open={modUserOpen} size="xs" autoclose={false} class="w-full">
+<Modal title={m.add_new_user()} bind:open={modUserOpen} size="xs" autoclose={false} class="w-full">
 	<form class="flex flex-col space-y-6" action="#">
 		<div class="grid grid-cols-[1fr_3fr] space-y-1">
 			<Label class="flex items-center text-xs rtl:text-right font-medium">User ID</Label>
@@ -86,8 +87,8 @@
 			<ProjectMember current_user={current_user} current_project={current_project} isRoot={isRoot} user={user}/>
 		</div>
 		<div class="flex flex-col-2 justify-center space-x-6">
-			<Button type="button" class="w-full1">Add user</Button>
-			<Button type="button" class="w-full1">Dismiss</Button>
+			<Button type="button" class="w-full1">{m.add_user()}</Button>
+			<Button type="button" class="w-full1">{m.cancel()}</Button>
 		</div>
 	</form>
 </Modal>
