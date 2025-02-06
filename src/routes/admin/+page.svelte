@@ -7,6 +7,7 @@
 	import { AdminPermission } from '$lib/oldap/enums/admin_permissions';
 	import { TabItem, Tabs } from 'flowbite-svelte';
 	import UsersList from '$lib/components/UsersList.svelte';
+	import * as m from '$lib/paraglide/messages.js'
 
 	let user: OldapUser | null = $state(null);
 	let project: OldapProject | null = $state(null);
@@ -27,24 +28,25 @@
 			}
 		});
 		const pp: Set<string> = new Set<string>();
-
 		if (res !== undefined) {
 			const res2 = res as InProject;
-			res2.permissions.forEach((x) => {
-				switch (x) {
-					case AdminPermission.ADMIN_USERS: pp.add("Users"); break;
-					case AdminPermission.ADMIN_LISTS: pp.add("Lists"); break;
-					case AdminPermission.ADMIN_MODEL: pp.add("Datamodel"); break;
-					case AdminPermission.ADMIN_PERMISSION_SETS: pp.add("Permissions"); break;
-					case AdminPermission.ADMIN_OLDAP: {
-						pp.add("Users");
-						pp.add("Lists");
-						pp.add("Datamodel");
-						pp.add("Permissions");
-						break;
+			if (res2.permissions.includes(AdminPermission.ADMIN_OLDAP)) {
+				pp.add(m.users());
+				pp.add(m.kwlists());
+				pp.add(m.datamodel());
+				pp.add(m.permissions());
+			}
+			else {
+				res2.permissions.forEach((x) => {
+					switch (x) {
+						case AdminPermission.ADMIN_USERS: pp.add(m.users()); break;
+						case AdminPermission.ADMIN_LISTS: pp.add(m.kwlists()); break;
+						case AdminPermission.ADMIN_MODEL: pp.add(m.datamodel()); break;
+						case AdminPermission.ADMIN_PERMISSION_SETS: pp.add(m.permissions()); break;
 					}
-				}
-			});
+				});
+			}
+
 		}
 		return pp;
 	});
@@ -61,19 +63,19 @@
 </script>
 <Tabs tabStyle="underline">
 	{#each perms as perm}
-		{#if perm === "Users"}
+		{#if perm === m.users()}
 			<TabItem bind:open={users_open} title={perm}>
 				<UsersList project={project} />
 			</TabItem>
-		{:else if perm === "Lists"}
+		{:else if perm === m.kwlists()}
 			<TabItem open={lists_open} title={perm}>
 				gagagagagagagag agaga aga aga aga aga ag ga
 			</TabItem>
-		{:else if perm === "Datamodel"}
+		{:else if perm === m.datamodel()}
 			<TabItem open={datamodel_open} title={perm}>
 				gagagagagagagag agaga aga aga aga aga ag ga
 			</TabItem>
-		{:else if perm === "Permissions"}
+		{:else if perm === m.permissions()}
 			<TabItem open={permissions_open} title={perm}>
 				gagagagagagagag agaga aga aga aga aga ag ga
 			</TabItem>

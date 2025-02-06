@@ -4,6 +4,8 @@
 
 	import { i18n } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
+	import * as m from '$lib/paraglide/messages.js'
+
 	import '../app.css';
 
 	import {
@@ -109,10 +111,10 @@
 						<DropdownHeader  class="text-xs">
 							<span class="block text-sm">{given_name} {family_name}</span>
 						</DropdownHeader>
-						<DropdownItem class="text-xs">Change password...</DropdownItem>
-						<DropdownItem class="text-xs">Change/set avatar image</DropdownItem>
+						<DropdownItem class="text-xs">{m.change_passwd()}</DropdownItem>
+						<DropdownItem class="text-xs">{m.change_avatar()}</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem  class="text-xs" onclick={() => {call_logout(); dropdownOpen = false;}}>Sign out</DropdownItem>
+						<DropdownItem  class="text-xs" onclick={() => {call_logout(); dropdownOpen = false;}}>{m.sign_out()}</DropdownItem>
 					</Dropdown>
 				{/if}
 				<Loginout bind:isOpen={loginDialog} bind:this={loginout}/>
@@ -122,10 +124,10 @@
 
 			<NavHamburger />
 			<NavUl {activeUrl}>
-				<NavLi href="/" active={true}>Home</NavLi>
-				<NavLi href="/about">About</NavLi>
+				<NavLi href="/" active={true}>{m.home()}</NavLi>
+				<NavLi href="/about">{m.about()}</NavLi>
 				{#if logged_in}
-					<NavLi href="/admin">Admin</NavLi>
+					<NavLi href="/admin">{m.admin()}</NavLi>
 					<ProjectSelector />
 				{/if}
 				<LangChooser />
@@ -144,10 +146,10 @@
 			<div class="sm:flex sm:items-center sm:justify-between">
 				<FooterCopyright href="/" by="L. Rosenthaler" year={2025} copyrightMessage="(All rights reserved)"/>
 				<FooterLinkGroup ulClass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
-					<FooterLink href="/about">About</FooterLink>
-					<FooterLink href="/">Privacy Policy</FooterLink>
-					<FooterLink href="/">Licensing</FooterLink>
-					<FooterLink href="mailto:lukas.rosenthaler@gmail.com?subject=OLDAP">Contact</FooterLink>
+					<FooterLink href="/about">{m.about()}</FooterLink>
+					<FooterLink href="/">{m.privacy_policy()}</FooterLink>
+					<FooterLink href="/">{m.licensing()}</FooterLink>
+					<FooterLink href="mailto:lukas.rosenthaler@gmail.com?subject=OLDAP">{m.contact()}</FooterLink>
 				</FooterLinkGroup>
 			</div>
 		</Footer>

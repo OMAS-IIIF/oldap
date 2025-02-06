@@ -9,7 +9,10 @@
 	import type { OldapProject } from '$lib/oldap/classes/project';
 	import * as m from '$lib/paraglide/messages.js'
 
+
 	let { modUserOpen = $bindable(), user = $bindable() } = $props();
+	user = user as OldapUser;
+	modUserOpen = modUserOpen as boolean;
 
 	let current_user: OldapUser | null = $state(null);
 	let current_project: OldapProject | null = $state(null);
@@ -19,6 +22,7 @@
 	let email: string = $state('');
 	let isActive: boolean = $state(false);
 	let isRoot: boolean = $state(false);
+	let dialog_title = $state('')
 
 	//
 	// Get the current user and check if she/he is member of the SystemProject with ADMIN_OLDAP rights
@@ -48,6 +52,7 @@
 			familyName = user.familyName.toString();
 			email = user.email.toString();
 			isActive = user.isActive;
+			dialog_title = m.mod_user();
 		}
 		else {
 			userId = '';
@@ -55,11 +60,12 @@
 			familyName = '';
 			email = '';
 			isActive = false;
+			dialog_title = m.add_user();
 		}
 	});
 </script>
 
-<Modal title={m.add_new_user()} bind:open={modUserOpen} size="xs" autoclose={false} class="w-full">
+<Modal title={dialog_title} bind:open={modUserOpen} size="xs" autoclose={false} class="w-full">
 	<form class="flex flex-col space-y-6" action="#">
 		<div class="grid grid-cols-[1fr_3fr] space-y-1">
 			<Label class="flex items-center text-xs rtl:text-right font-medium">User ID</Label>
