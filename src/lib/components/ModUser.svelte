@@ -8,12 +8,16 @@
 	import { projectStore } from '$lib/stores/project';
 	import type { OldapProject } from '$lib/oldap/classes/project';
 	import * as m from '$lib/paraglide/messages.js'
+	import { QName } from '$lib/oldap/types/xsd_qname';
+	import type { AuthInfo } from '$lib/interfaces/authinfo';
 
 
 	let { modUserOpen = $bindable(), user = $bindable() } = $props();
 	user = user as OldapUser;
 	modUserOpen = modUserOpen as boolean;
 
+	const authinfo_json = sessionStorage.getItem('authinfo')
+	let authinfo: AuthInfo;
 	let current_user: OldapUser | null = $state(null);
 	let current_project: OldapProject | null = $state(null);
 	let userId: string = $state('')
@@ -22,7 +26,9 @@
 	let email: string = $state('');
 	let isActive: boolean = $state(false);
 	let isRoot: boolean = $state(false);
+	let permissionSet: QName[] = $state([]);
 	let dialog_title = $state('')
+	let project_member_ref: ProjectMember;
 
 	//
 	// Get the current user and check if she/he is member of the SystemProject with ADMIN_OLDAP rights
@@ -52,6 +58,7 @@
 			familyName = user.familyName.toString();
 			email = user.email.toString();
 			isActive = user.isActive;
+			permissionSet = user.permissionSet;
 			dialog_title = m.mod_user();
 		}
 		else {
@@ -62,7 +69,31 @@
 			isActive = false;
 			dialog_title = m.add_user();
 		}
+
+		if (authinfo_json) {
+			authinfo = JSON.parse(authinfo_json);
+			const all_permsets_config = {
+				headers: {
+					'Accept': 'application/json',
+					'Authorization': 'Bearer ' + authinfo.token,
+				},
+				queries: {
+
+				}
+			}
+		}
 	});
+
+
+	const add_user = () => {
+		console.log("======= ADD_USER ====")
+		const projects = project_member_ref.get_shortnames();
+		for (let i = 0; i < projects.length; i++) {
+			const res = project_member_ref.get_perms(projects[i] ?? '');
+			console.log(res);
+		}
+	}
+
 </script>
 
 <Modal title={dialog_title} bind:open={modUserOpen} size="xs" autoclose={false} class="w-full">
@@ -90,10 +121,10 @@
 			<Toggle bind:checked={isActive}></Toggle>
 
 			<Label class="flex items-center text-xs rtl:text-right font-medium">In project</Label>
-			<ProjectMember current_user={current_user} current_project={current_project} isRoot={isRoot} user={user}/>
+			<ProjectMember current_user={current_user} current_project={current_project} isRoot={isRoot} user={user} bind:this={project_member_ref}/>
 		</div>
 		<div class="flex flex-col-2 justify-center space-x-6">
-			<Button type="button" class="w-full1">{m.add_user()}</Button>
+			<Button type="button" class="w-full1" onclick={add_user}>{m.add_user()}</Button>
 			<Button type="button" class="w-full1">{m.cancel()}</Button>
 		</div>
 	</form>

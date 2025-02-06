@@ -38,13 +38,30 @@
 		return user?.inProject?.find((entry: InProject) => (entry?.project?.toString() === project_iri))?.permissions.includes(permission)
 	}
 
-	const perm_users_checked: Record<string, boolean> = $state({});
+
+	let perm_users_checked: Record<string, boolean> = $state({});
 	let perm_lists_checked: Record<string, boolean> = $state({});
 	let perm_resources_checked: Record<string, boolean> = $state({});
 	let perm_permissions_checked: Record<string, boolean> = $state({});
 	let perm_model_checked: Record<string, boolean> = $state({});
 	let perm_create_checked: Record<string, boolean> = $state({});
 	let perm_oldap_checked: Record<string, boolean> = $state({});
+
+	export const get_perms = (shortname: string) => {
+		return {
+			user: perm_users_checked[shortname],
+			lists: perm_lists_checked[shortname],
+			resources: perm_resources_checked[shortname],
+			permissions: perm_permissions_checked[shortname],
+			model: perm_model_checked[shortname],
+			create: perm_create_checked[shortname],
+			oldap: perm_oldap_checked[shortname]
+		}
+	};
+
+	export const get_shortnames = () => {
+		return projectShortNames;
+	};
 
 	current_user.inProject.forEach((item: InProject) => {
 		if (item.project.toString() === current_project.projectIri.toString()) {
@@ -109,7 +126,16 @@
 	{#each projectShortNames as shortname}
 		<AccordionItem paddingDefault="p-1 px-2">
 			<span slot="header">{shortname}</span>
-			<Checkbox disabled={perm_users_disabled} bind:checked={perm_users_checked[shortname]}>{m.perm_user()} {shortname}</Checkbox>
+			<Button> Admin Permissions <ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" /></Button>
+			<Dropdown class="w-44 p-3 space-y-3 text-sm">
+				<li>
+					<Checkbox disabled={perm_users_disabled} bind:checked={perm_users_checked[shortname]}>{m.perm_user()} {shortname}</Checkbox>
+				</li>
+				<li>
+					<Checkbox disabled={perm_lists_disabled} bind:checked={perm_lists_checked[shortname]}>{m.perm_lists()}</Checkbox>
+				</li>
+			</Dropdown>
+			<!--<Checkbox disabled={perm_users_disabled} bind:checked={perm_users_checked[shortname]}>{m.perm_user()} {shortname}</Checkbox>
 			<Tooltip class="text-xs">{m.perm_user_tip()}</Tooltip>
 
 			<Checkbox disabled={perm_lists_disabled} bind:checked={perm_lists_checked[shortname]}>{m.perm_lists()}</Checkbox>
@@ -129,6 +155,7 @@
 
 			<Checkbox disabled={!isRoot} bind:checked={perm_oldap_checked[shortname]}>{m.perm_system()} </Checkbox>
 			<Tooltip class="text-xs">{m.perm_system_tip()}</Tooltip>
+			-->
 		</AccordionItem>
 		{/each}
 </Accordion>
