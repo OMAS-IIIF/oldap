@@ -35,7 +35,7 @@
     "change_passwd": "Passwort ändern",
     "change_avatar": "Avatarbild ändern/einstellen",
     "sign_out": "Abmelden",
-    "about": "über",
+    "about": "Über",
     "admin": "Verwaltung",
     "privacy_policy": "Datenschutzbestimmungen",
     "licensing": "Lizenzvergabe",
@@ -45,5 +45,6 @@
     "kwlists": "Stichwortlisten",
     "datamodel": "Datenmodell",
     "permissions": "Berechtigungen",
-    "mod_user": "Benutzer ändern"
+    "mod_user": "Benutzer ändern",
+    "projects": "Projekte"
 }

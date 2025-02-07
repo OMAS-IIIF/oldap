@@ -11,6 +11,7 @@
 
 	let user: OldapUser | null = $state(null);
 	let project: OldapProject | null = $state(null);
+	let projects_open = $state(false);
 	let users_open = $state(false);
 	let lists_open = $state(false);
 	let datamodel_open = $state(false);
@@ -30,7 +31,7 @@
 		const pp: Set<string> = new Set<string>();
 		if (res !== undefined) {
 			const res2 = res as InProject;
-			if (res2.permissions.includes(AdminPermission.ADMIN_OLDAP)) {
+			if (user?.isRoot) {
 				pp.add(m.users());
 				pp.add(m.kwlists());
 				pp.add(m.datamodel());
@@ -62,6 +63,11 @@
 
 </script>
 <Tabs tabStyle="underline">
+	{#if user?.isRoot}
+		<TabItem bind:open={projects_open} title={m.projects()}>
+			Show projects here...
+		</TabItem>
+	{/if}
 	{#each perms as perm}
 		{#if perm === m.users()}
 			<TabItem bind:open={users_open} title={perm}>
@@ -69,15 +75,15 @@
 			</TabItem>
 		{:else if perm === m.kwlists()}
 			<TabItem open={lists_open} title={perm}>
-				gagagagagagagag agaga aga aga aga aga ag ga
+				Show here keyword lists
 			</TabItem>
 		{:else if perm === m.datamodel()}
 			<TabItem open={datamodel_open} title={perm}>
-				gagagagagagagag agaga aga aga aga aga ag ga
+				Show the data model here
 			</TabItem>
 		{:else if perm === m.permissions()}
 			<TabItem open={permissions_open} title={perm}>
-				gagagagagagagag agaga aga aga aga aga ag ga
+				Show permission sets here
 			</TabItem>
 		{/if}
 	{/each}

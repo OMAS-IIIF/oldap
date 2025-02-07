@@ -2,7 +2,7 @@
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { Dropdown, DropdownItem, NavLi, Radio } from 'flowbite-svelte';
 	import { userStore } from '$lib/stores/user';
-	import type { OldapUser } from '$lib/oldap/classes/user';
+	import type { InProject, OldapUser } from '$lib/oldap/classes/user';
 	import type { AuthInfo } from '$lib/interfaces/authinfo';
 	import { errorInfoStore } from '$lib/stores/errorinfo';
 	import { Severity } from '$lib/interfaces/errorinfo';
@@ -13,6 +13,7 @@
 	import { languageTag } from '$lib/paraglide/runtime.js'
 	import { projectStore } from '$lib/stores/project';
 	import { apiClient } from '$lib/shared/apiClient';
+	import { AdminPermission } from '$lib/oldap/enums/admin_permissions';
 
 	let projects: {[key: string]: OldapProject} = {};
 	let selected_project = $state('');
@@ -24,23 +25,36 @@
 		}
 	});
 
+	/* TODO: make shared function to get authinfo! */
+	const authinfo_json = sessionStorage.getItem('authinfo')
+	let authinfo: AuthInfo;
+	if (authinfo_json) {
+		authinfo = JSON.parse(authinfo_json);
+	}
+	else {
+		errorInfoStore.set({errormsg: m.userdata_corrupted(), errorcode: 500, severity: Severity.ERROR, });
+	}
+
 	userStore.subscribe(async (oldap_user: OldapUser | null) => {
 		if (oldap_user) {
-			const project_iris = oldap_user.inProject?.map((x) => (x.project.toString()));
-
-			/* TODO: make shared function to get authinfo! */
-			const authinfo_json = sessionStorage.getItem('authinfo')
-			let authinfo: AuthInfo;
-			if (authinfo_json) {
-				authinfo = JSON.parse(authinfo_json);
+			let project_iris: string[] | undefined;
+			if (oldap_user.isRoot) {
+				const all_projects_config = {
+					headers: {
+						'Accept': 'application/json',
+						'Authorization': 'Bearer ' + authinfo.token,
+					},
+				}
+				try {
+					const res = await apiClient.getAdminprojectsearch(all_projects_config);
+					project_iris = res.map(item => item[0]) as string[] | undefined;
+				}
+				catch (err) {
+					process_api_error(err)
+				}
 			}
 			else {
-				errorInfoStore.set({
-					errormsg: m.userdata_corrupted(),
-					errorcode: 500,
-					severity: Severity.ERROR,
-				});
-				return;
+				project_iris = oldap_user.inProject?.map((x) => (x.project.toString()));
 			}
 
 			if (project_iris) {

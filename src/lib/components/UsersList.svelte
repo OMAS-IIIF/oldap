@@ -1,7 +1,7 @@
 <script lang="ts">
 
 	import {
-		Button,
+		Button, Checkbox,
 		Modal,
 		Table,
 		TableBody,
@@ -20,19 +20,23 @@
 	import { OldapUser } from '$lib/oldap/classes/user';
 	import { process_api_error } from '$lib/helpers/process_error';
 	import ModUser from '$lib/components/ModUser.svelte';
+	import { userStore } from '$lib/stores/user';
 
 	let { project = $bindable() } = $props();
+	project = project as OldapProject;
 
 	let toggleConformModal = $state(false)
 	let toggleChecked: {[key: string]: boolean} = $state({});
 	let userid: string = $state('');
 	let edit_user: OldapUser | null = $state(null);
+	let active_user: OldapUser | undefined = $state();
+	let users: {[key: string]: OldapUser} = $state({});
+	let mod_user_open = $state(false);
+	let show_all_users = $state(false)
 
 	const authinfo_json = sessionStorage.getItem('authinfo');
 
-	let users: {[key: string]: OldapUser} = $state({});
 
-	let mod_user_open = $state(false);
 
 	let authinfo: AuthInfo;
 	if (authinfo_json) {
@@ -46,14 +50,25 @@
 		});
 	}
 
+	userStore.subscribe(async (oldap_user: OldapUser | null) => {
+		active_user = oldap_user;
+	});
+
 	$effect(() => {
 		if (project) {
-			const config_usersearch = {
+			users = {};
+			let config_usersearch = {
 				queries: { inProject: project?.projectIri?.toString() },
 				headers: {
 					'Accept': 'application/json',
 					'Authorization': 'Bearer ' + authinfo.token,
 				},
+			}
+			if (!show_all_users) {
+				config_usersearch = {...config_usersearch, queries: {inProject: project?.projectIri?.toString()} };
+			}
+			else {
+				delete config_usersearch.queries;
 			}
 			//
 			// first we get only the user iri's
@@ -118,10 +133,16 @@
 		alert("CHANGE ACTIVE STATE TO " + toggleChecked[userid])
 	};
 
+
 </script>
 
-<Button onclick={() => {mod_user_open = true; edit_user = null; } }>Add new user</Button>
-<div class="h-6"> </div>
+<div class="flex flex-row flex">
+	<Button size=xs  class="m-1" onclick={() => {mod_user_open = true; edit_user = null;} }>Add new user</Button>
+	<div class="h-6"> </div>
+	{#if active_user?.isRoot && (project.projectShortName.toString() === "oldap")}
+		<Checkbox class="m-1" bind:checked={show_all_users}>Show all users</Checkbox>
+	{/if}
+</div>
 <Table hoverable={true} shadow>
 	<TableHead theadClass="text-xs uppercase divide-blue-500">
 		<TableHeadCell>User ID</TableHeadCell>

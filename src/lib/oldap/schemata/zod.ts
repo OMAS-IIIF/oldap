@@ -289,7 +289,7 @@ export const endpoints = makeApi([
 				schema: z.object({ label: z.string(), definedByProject: z.string(), givesPermission: z.string() }).partial().passthrough()
 			},
 		],
-		response: z.object({ message: z.string() }).partial().passthrough(),
+		response: z.array(z.string()),
 		errors: [
 			{
 				status: 400,

@@ -45,5 +45,6 @@
     "kwlists": "Elenchi di parole chiave",
     "datamodel": "Modello di dati",
     "permissions": "Permessi",
-    "mod_user": "Modificare l'utente"
+    "mod_user": "Modificare l'utente",
+    "projects": "Progetti"
 }

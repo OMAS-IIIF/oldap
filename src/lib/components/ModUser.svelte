@@ -10,6 +10,8 @@
 	import * as m from '$lib/paraglide/messages.js'
 	import { QName } from '$lib/oldap/types/xsd_qname';
 	import type { AuthInfo } from '$lib/interfaces/authinfo';
+	import { apiClient } from '$lib/shared/apiClient';
+	import { process_api_error } from '$lib/helpers/process_error';
 
 
 	let { modUserOpen = $bindable(), user = $bindable() } = $props();
@@ -25,7 +27,6 @@
 	let familyName: string = $state('');
 	let email: string = $state('');
 	let isActive: boolean = $state(false);
-	let isRoot: boolean = $state(false);
 	let permissionSet: QName[] = $state([]);
 	let dialog_title = $state('')
 	let project_member_ref: ProjectMember;
@@ -35,12 +36,6 @@
 	//
 	userStore.subscribe(async (newuser: OldapUser | null) => {
 		current_user = newuser;
-		isRoot = false;
-		newuser?.inProject?.forEach((in_project: InProject) => {
-			if ((in_project.project.toString() === 'oldap:SystemProject') && in_project.permissions.includes(AdminPermission.ADMIN_OLDAP)) {
-				isRoot = true;
-			}
-		});
 	});
 
 	//
@@ -78,9 +73,16 @@
 					'Authorization': 'Bearer ' + authinfo.token,
 				},
 				queries: {
-
+					definedByProject: current_project?.projectIri.toString(),
 				}
 			}
+			apiClient.getAdminpermissionsetsearch(all_permsets_config)
+				.then(response => {
+					console.log("----------->", response);
+				})
+				.catch(err => {
+					process_api_error(err);
+				});
 		}
 	});
 
@@ -121,7 +123,7 @@
 			<Toggle bind:checked={isActive}></Toggle>
 
 			<Label class="flex items-center text-xs rtl:text-right font-medium">In project</Label>
-			<ProjectMember current_user={current_user} current_project={current_project} isRoot={isRoot} user={user} bind:this={project_member_ref}/>
+			<ProjectMember current_user={current_user} current_project={current_project} isRoot={current_user.isRoot} user={user} bind:this={project_member_ref}/>
 		</div>
 		<div class="flex flex-col-2 justify-center space-x-6">
 			<Button type="button" class="w-full1" onclick={add_user}>{m.add_user()}</Button>

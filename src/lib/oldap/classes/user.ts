@@ -20,6 +20,7 @@ export class OldapUser extends OldapObject {
 	email: string;
 	inProject?: InProject[];
 	hasPermissions?: QName[];
+	isRoot: boolean;
 
 	constructor(creator: Iri,
 							created: Date,
@@ -32,7 +33,8 @@ export class OldapUser extends OldapObject {
 							email: string,
 							isActive?: boolean,
 							inProject?: InProject[],
-							hasPermissions?: QName[]) {
+							hasPermissions?: QName[],
+							isRoot: boolean = false) {
 		super(creator, created, contributor, modified);
 		this.#userIri = userIri;
 		this.#userId = userId;
@@ -40,8 +42,9 @@ export class OldapUser extends OldapObject {
 		this.givenName = givenName;
 		this.email = email;
 		this.isActive = isActive;
-		this.inProject = inProject
-		this.hasPermissions = hasPermissions
+		this.inProject = inProject;
+		this.hasPermissions = hasPermissions;
+		this.isRoot = isRoot;
 	}
 
 	get userIri() {
@@ -81,6 +84,13 @@ export class OldapUser extends OldapObject {
 		}
 		const has_permissions: QName[] | undefined = json?.has_permissions.map((x: string) => (QName.createQName(x)));
 
+		let isRoot = false
+		in_project?.forEach((in_project: InProject) => {
+			if ((in_project.project.toString() === 'oldap:SystemProject') && in_project.permissions.includes(AdminPermission.ADMIN_OLDAP)) {
+				isRoot = true;
+			}
+		});
+
 		return new OldapUser(
 			creator,
 			created,
@@ -93,6 +103,7 @@ export class OldapUser extends OldapObject {
 			email,
 			is_active,
 			in_project,
-			has_permissions);
+			has_permissions,
+			isRoot);
 	}
 }

@@ -12,6 +12,7 @@
 	import { writable } from 'svelte/store';
 
 	import { Accordion, AccordionItem, Button, Checkbox, Dropdown, Radio, Tooltip } from 'flowbite-svelte';
+	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { apiClient } from '$lib/shared/apiClient';
 	import type { AuthInfo } from '$lib/interfaces/authinfo';
 	import { errorInfoStore } from '$lib/stores/errorinfo';
@@ -126,7 +127,7 @@
 	{#each projectShortNames as shortname}
 		<AccordionItem paddingDefault="p-1 px-2">
 			<span slot="header">{shortname}</span>
-			<Button> Admin Permissions <ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" /></Button>
+			<Button outline size="xs"> Admin Permissions <ChevronDownOutline class="w-6 h-6 ms-2 text-red-800 dark:text-red-800" /></Button>
 			<Dropdown class="w-44 p-3 space-y-3 text-sm">
 				<li>
 					<Checkbox disabled={perm_users_disabled} bind:checked={perm_users_checked[shortname]}>{m.perm_user()} {shortname}</Checkbox>
@@ -134,28 +135,22 @@
 				<li>
 					<Checkbox disabled={perm_lists_disabled} bind:checked={perm_lists_checked[shortname]}>{m.perm_lists()}</Checkbox>
 				</li>
+				<li>
+					<Checkbox disabled={perm_resources_disabled} bind:checked={perm_resources_checked[shortname]}>{m.perm_resources()}</Checkbox>
+				</li>
+				<li>
+					<Checkbox disabled={perm_permissions_disabled} bind:checked={perm_permissions_checked[shortname]}>{m.perm_permissions()}</Checkbox>
+				</li>
+				<li>
+					<Checkbox disabled={perm_model_disabled} bind:checked={perm_model_checked[shortname]}>{m.perm_model()}</Checkbox>
+				</li>
+				<li>
+					<Checkbox disabled={perm_create_disabled} bind:checked={perm_create_checked[shortname]}>{m.perm_create()}</Checkbox>
+				</li>
+				<li>
+					<Checkbox disabled={!isRoot} bind:checked={perm_oldap_checked[shortname]}>{m.perm_system()}</Checkbox>
+				</li>
 			</Dropdown>
-			<!--<Checkbox disabled={perm_users_disabled} bind:checked={perm_users_checked[shortname]}>{m.perm_user()} {shortname}</Checkbox>
-			<Tooltip class="text-xs">{m.perm_user_tip()}</Tooltip>
-
-			<Checkbox disabled={perm_lists_disabled} bind:checked={perm_lists_checked[shortname]}>{m.perm_lists()}</Checkbox>
-			<Tooltip class="text-xs">{m.perm_lists_tip()}</Tooltip>
-
-			<Checkbox disabled={perm_resources_disabled} bind:checked={perm_resources_checked[shortname]}>{m.perm_resources()}</Checkbox>
-			<Tooltip class="text-xs">{m.perm_resources_tip()}</Tooltip>
-
-			<Checkbox disabled={perm_permissions_disabled} bind:checked={perm_permissions_checked[shortname]}>{m.perm_permissions()}</Checkbox>
-			<Tooltip class="text-xs">{m.perm_permissions_tip()}</Tooltip>
-
-			<Checkbox disabled={perm_model_disabled} bind:checked={perm_model_checked[shortname]}>{m.perm_model()}</Checkbox>
-			<Tooltip class="text-xs">{m.perm_model_tip()}</Tooltip>
-
-			<Checkbox disabled={perm_create_disabled} bind:checked={perm_create_checked[shortname]}>{m.perm_create()}</Checkbox>
-			<Tooltip class="text-xs">{m.perm_create_tip()}</Tooltip>
-
-			<Checkbox disabled={!isRoot} bind:checked={perm_oldap_checked[shortname]}>{m.perm_system()} </Checkbox>
-			<Tooltip class="text-xs">{m.perm_system_tip()}</Tooltip>
-			-->
 		</AccordionItem>
 		{/each}
 </Accordion>

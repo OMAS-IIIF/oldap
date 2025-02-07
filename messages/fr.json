@@ -45,5 +45,6 @@
     "kwlists": "Listes de mots-clés",
     "datamodel": "Module de données",
     "permissions": "Permissions",
-    "mod_user": "Modifier l'utilisateur"
+    "mod_user": "Modifier l'utilisateur",
+    "projects": "Projets"
 }
