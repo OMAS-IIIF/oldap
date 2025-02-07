@@ -68,7 +68,7 @@
 				config_usersearch = {...config_usersearch, queries: {inProject: project?.projectIri?.toString()} };
 			}
 			else {
-				delete config_usersearch.queries;
+				config_usersearch.queries = undefined;
 			}
 			//
 			// first we get only the user iri's

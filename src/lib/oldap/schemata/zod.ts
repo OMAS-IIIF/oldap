@@ -284,9 +284,19 @@ export const endpoints = makeApi([
 		requestFormat: "json",
 		parameters: [
 			{
-				name: "body",
-				type: "Body",
-				schema: z.object({ label: z.string(), definedByProject: z.string(), givesPermission: z.string() }).partial().passthrough()
+				name: "label",
+				type: "Query",
+				schema: z.string().optional()
+			},
+			{
+				name: "definedByProject",
+				type: "Query",
+				schema: z.string().optional()
+			},
+			{
+				name: "givesPermission",
+				type: "Query",
+				schema: z.string().optional()
 			},
 		],
 		response: z.array(z.string()),
