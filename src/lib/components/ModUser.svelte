@@ -98,7 +98,7 @@
 
 </script>
 
-<Modal title={dialog_title} bind:open={modUserOpen} size="xs" autoclose={false} class="w-full">
+<Modal title={dialog_title} bind:open={modUserOpen} size=lg autoclose={false} class="w-full">
 	<form class="flex flex-col space-y-6" action="#">
 		<div class="grid grid-cols-[1fr_3fr] space-y-1">
 			<Label class="flex items-center text-xs rtl:text-right font-medium">User ID</Label>
@@ -123,7 +123,7 @@
 			<Toggle bind:checked={isActive}></Toggle>
 
 			<Label class="flex items-center text-xs rtl:text-right font-medium">In project</Label>
-			<ProjectMember current_user={current_user} current_project={current_project} isRoot={current_user.isRoot} user={user} bind:this={project_member_ref}/>
+			<ProjectMember current_user={current_user} current_project={current_project} isRoot={current_user?.isRoot} user={user} bind:this={project_member_ref}/>
 		</div>
 		<div class="flex flex-col-2 justify-center space-x-6">
 			<Button type="button" class="w-full1" onclick={add_user}>{m.add_user()}</Button>
