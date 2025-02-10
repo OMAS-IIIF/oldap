@@ -28,7 +28,7 @@
 	let email: string = $state('');
 	let isActive: boolean = $state(false);
 	let permissionSet: QName[] = $state([]);
-	let dialog_title = $state('')
+	let dialog_title = $state('');
 	let project_member_ref: ProjectMember;
 
 	//
@@ -44,7 +44,6 @@
 	projectStore.subscribe((newproject: OldapProject | null) => {
 		current_project = newproject;
 	});
-
 
 	$effect(() => {
 		if (user) {
@@ -86,12 +85,11 @@
 		}
 	});
 
-
 	const add_user = () => {
 		console.log("======= ADD_USER ====")
-		const projects = project_member_ref.get_shortnames();
-		for (let i = 0; i < projects.length; i++) {
-			const res = project_member_ref.get_perms(projects[i] ?? '');
+		const projects = project_member_ref?.get_shortnames();
+		for (const project of projects) {
+			const res = project_member_ref?.get_perms(project.value);
 			console.log(res);
 		}
 	}
