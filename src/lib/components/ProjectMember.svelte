@@ -8,9 +8,9 @@
 	 * @prop {user} user The user that should be edited. Is null, if a new user should be added
 	 */
 	let { current_user, current_project, isRoot, user } = $props(); // to get the proper typing!
-	current_user = current_user as OldapUser;
-	current_project = current_project as OldapProject;
-	user = user as OldapUser;
+	//current_user = current_user as OldapUser;
+	//current_project = current_project as OldapProject;
+	//user = user as OldapUser;
 
 	import {
 		Button,

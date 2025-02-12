@@ -115,8 +115,8 @@ export const endpoints = makeApi([
 	},
 	{
 		method: "put",
-		path: "/admin/permissionset/:definedByProject/:permissionsetid",
-		alias: "putAdminpermissionsetDefinedByProjectPermissionsetid",
+		path: "/admin/permissionset/:definedByProject/:permissionSetId",
+		alias: "putAdminpermissionsetDefinedByProjectPermissionSetId",
 		description: `Creates a new permissionset in the database`,
 		requestFormat: "json",
 		parameters: [
@@ -131,7 +131,7 @@ export const endpoints = makeApi([
 				schema: z.string()
 			},
 			{
-				name: "permissionsetid",
+				name: "permissionSetId",
 				type: "Path",
 				schema: z.string()
 			},
@@ -162,8 +162,8 @@ export const endpoints = makeApi([
 	},
 	{
 		method: "delete",
-		path: "/admin/permissionset/:definedByProject/:permissionsetid",
-		alias: "deleteAdminpermissionsetDefinedByProjectPermissionsetid",
+		path: "/admin/permissionset/:definedByProject/:permissionSetId",
+		alias: "deleteAdminpermissionsetDefinedByProjectPermissionSetId",
 		description: `The user that has the rights (given by his token) deletes a permissionset`,
 		requestFormat: "json",
 		parameters: [
@@ -173,7 +173,7 @@ export const endpoints = makeApi([
 				schema: z.string()
 			},
 			{
-				name: "permissionsetid",
+				name: "permissionSetId",
 				type: "Path",
 				schema: z.string()
 			},
@@ -199,8 +199,8 @@ export const endpoints = makeApi([
 	},
 	{
 		method: "get",
-		path: "/admin/permissionset/:definedByProject/:permissionsetid",
-		alias: "getAdminpermissionsetDefinedByProjectPermissionsetid",
+		path: "/admin/permissionset/:definedByProject/:permissionSetId",
+		alias: "getAdminpermissionsetDefinedByProjectPermissionSetId",
 		description: `The user that has the rights (given by his token) gets Information about a permissionset`,
 		requestFormat: "json",
 		parameters: [
@@ -210,12 +210,12 @@ export const endpoints = makeApi([
 				schema: z.string()
 			},
 			{
-				name: "permissionsetid",
+				name: "permissionSetId",
 				type: "Path",
 				schema: z.string()
 			},
 		],
-		response: z.object({ permisionsetid: z.string(), creation: z.string(), contributor: z.string(), modified: z.string(), label: LangString, comment: LangString, givesPermission: z.string(), definedByProject: z.string() }).partial().passthrough(),
+		response: z.object({ permissionSetId: z.string(), creation: z.string(), contributor: z.string(), modified: z.string(), label: LangString, comment: LangString, givesPermission: z.string(), definedByProject: z.string() }).partial().passthrough(),
 		errors: [
 			{
 				status: 403,
@@ -231,8 +231,8 @@ export const endpoints = makeApi([
 	},
 	{
 		method: "post",
-		path: "/admin/permissionset/:definedByProject/:permissionsetid",
-		alias: "postAdminpermissionsetDefinedByProjectPermissionsetid",
+		path: "/admin/permissionset/:definedByProject/:permissionSetId",
+		alias: "postAdminpermissionsetDefinedByProjectPermissionSetId",
 		description: `The user that has the rights (given by his token) modifies a permissionset`,
 		requestFormat: "json",
 		parameters: [
@@ -247,7 +247,7 @@ export const endpoints = makeApi([
 				schema: z.string()
 			},
 			{
-				name: "permissionsetid",
+				name: "permissionSetId",
 				type: "Path",
 				schema: z.string()
 			},

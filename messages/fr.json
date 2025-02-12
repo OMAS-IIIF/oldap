@@ -46,5 +46,6 @@
     "datamodel": "Module de données",
     "permissions": "Permissions",
     "mod_user": "Modifier l'utilisateur",
-    "projects": "Projets"
+    "projects": "Projets",
+    "user_id": "ID utilisateur"
 }

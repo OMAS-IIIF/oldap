@@ -46,5 +46,6 @@
     "datamodel": "Datenmodell",
     "permissions": "Berechtigungen",
     "mod_user": "Benutzer ändern",
-    "projects": "Projekte"
+    "projects": "Projekte",
+    "user_id": "Benutzer ID"
 }
